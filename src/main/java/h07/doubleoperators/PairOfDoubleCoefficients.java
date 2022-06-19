@@ -1,4 +1,4 @@
-package h07;
+package h07.doubleoperators;
 
 public class PairOfDoubleCoefficients {
 
