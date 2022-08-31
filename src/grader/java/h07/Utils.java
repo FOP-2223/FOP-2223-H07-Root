@@ -1,5 +1,6 @@
 package h07;
 
+import h07.arrayoperators.PairwiseDoubleArrayBinaryOperatorGivingArray;
 import h07.arrayoperators.ReduceDoubleArray;
 import h07.operators.DoubleProductOfTwo;
 import h07.operators.DoubleSumOfTwo;
@@ -143,6 +144,31 @@ public class Utils {
             double[] result = operator.applyAsDoubleArray(array);
 
             System.out.print(pred1 + "; " + Arrays.toString(array) + "; " + Arrays.toString(result));
+            System.out.println();
+        }
+    }
+
+    public static void generateRandomInputsForPairwiseDoubleArrayBinaryOperatorGivingArrayTest() {
+        ArrayList<String> operators = new ArrayList<>();
+        operators.add("DoubleProductOfTwo");
+        operators.add("DoubleSumOfTwo");
+        operators.add("DoubleSumSqrtsOfTwo");
+
+        for (int i = 0; i < 1000; i++) {
+            String op1 = operators.get(ThreadLocalRandom.current().nextInt(operators.size()));
+
+            DoubleBinaryOperator operator1 = convertStringToOperator(
+                op1
+            );
+
+            PairwiseDoubleArrayBinaryOperatorGivingArray operator = new PairwiseDoubleArrayBinaryOperatorGivingArray(operator1);
+
+            double[] left = ThreadLocalRandom.current().doubles(ThreadLocalRandom.current().nextInt(6), -1, 1).toArray();
+            double[] right = ThreadLocalRandom.current().doubles(ThreadLocalRandom.current().nextInt(6), -1, 1).toArray();
+
+            double[] result = operator.applyAsDoubleArray(left, right);
+
+            System.out.print(op1 + "; " + Arrays.toString(left) + "; " + Arrays.toString(right) + "; " + Arrays.toString(result));
             System.out.println();
         }
     }
