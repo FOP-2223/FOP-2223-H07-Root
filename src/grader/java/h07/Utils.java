@@ -1,13 +1,16 @@
 package h07;
 
-import h07.Operators.DoubleProductOfTwo;
-import h07.Operators.DoubleSumOfTwo;
-import h07.Operators.DoubleSumSqrtsOfTwo;
+import h07.arrayoperators.ReduceDoubleArray;
+import h07.operators.DoubleProductOfTwo;
+import h07.operators.DoubleSumOfTwo;
+import h07.operators.DoubleSumSqrtsOfTwo;
 import h07.doubleoperators.ComposedDoubleBinaryOperator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.DoubleBinaryOperator;
+import java.util.function.DoublePredicate;
 
 public class Utils {
 
@@ -24,6 +27,20 @@ public class Utils {
                 return new DoubleSumOfTwo();
             case "DoubleSumSqrtsOfTwo":
                 return new DoubleSumSqrtsOfTwo();
+            default:
+                break;
+        }
+        return null;
+    }
+
+    public static DoublePredicate convertStringToPredicate(String pred) {
+        switch (pred) {
+            case "IsPositive":
+                return e -> e > 0;
+            case "DivisibleByTwo":
+                return e -> e % 2 == 0;
+            case "IsNotNaN":
+                return e -> !Double.isNaN(e);
             default:
                 break;
         }
@@ -97,6 +114,35 @@ public class Utils {
             }
 
             System.out.print(op1 + ", " + op2 + ", " + op3 + ", " + left + ", " + right + ", " + result);
+            System.out.println();
+        }
+    }
+
+    public static void generateRandomInputsForReduceDoubleArrayTest() {
+        ArrayList<String> predicates = new ArrayList<>();
+        predicates.add("IsPositive");
+        predicates.add("DivisibleByTwo");
+        predicates.add("IsNotNaN");
+
+        for (int i = 0; i < 1000; i++) {
+            String pred1 = predicates.get(ThreadLocalRandom.current().nextInt(predicates.size()));
+
+            DoublePredicate predicate1 = convertStringToPredicate(
+                pred1
+            );
+
+            ReduceDoubleArray operator = new ReduceDoubleArray(predicate1);
+
+            double[] array = ThreadLocalRandom.current().doubles(10,-1, 1).toArray();
+
+            if (pred1.equals("IsNotNaN"))
+                for (int j = 0; j < ThreadLocalRandom.current().nextInt(array.length); j++) {
+                    array[ThreadLocalRandom.current().nextInt(array.length)] = Double.NaN;
+                }
+
+            double[] result = operator.applyAsDoubleArray(array);
+
+            System.out.print(pred1 + "; " + Arrays.toString(array) + "; " + Arrays.toString(result));
             System.out.println();
         }
     }
