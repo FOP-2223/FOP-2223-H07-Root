@@ -193,4 +193,41 @@ public class Utils {
         }
     }
 
+    public static void generateRandomObjectsForDoubleBinaryOperatorFactoryTest() {
+        ArrayList<String> objects = new ArrayList<>();
+        objects.add("Object");
+        objects.add("BooleanTrue");
+        objects.add("BooleanFalse");
+
+        for (int i = 0; i < 1000; i++) {
+            System.out.println(objects.get(ThreadLocalRandom.current().nextInt(objects.size())));
+        }
+    }
+
+    public static void generateTwoRandomDoubles() {
+        for (int i = 0; i < 1000; i++) {
+            double left = ThreadLocalRandom.current().nextDouble(-1, 1);
+            double right = ThreadLocalRandom.current().nextDouble(-1, 1);
+
+            System.out.print(left + ", " + right);
+            System.out.println();
+        }
+    }
+
+    public static void generateThreeRandomOperators() {
+        ArrayList<String> operators = new ArrayList<>();
+        operators.add("DoubleProductOfTwo");
+        operators.add("DoubleSumOfTwo");
+        operators.add("DoubleSumSqrtsOfTwo");
+
+        for (int i = 0; i < 1000; i++) {
+            String op1 = operators.get(ThreadLocalRandom.current().nextInt(operators.size()));
+            String op2 = operators.get(ThreadLocalRandom.current().nextInt(operators.size()));
+            String op3 = operators.get(ThreadLocalRandom.current().nextInt(operators.size()));
+
+            System.out.print(op1 + ", " + op2 + ", " + op3);
+            System.out.println();
+        }
+    }
+
 }

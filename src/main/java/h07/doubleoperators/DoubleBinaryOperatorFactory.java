@@ -39,6 +39,10 @@ public class DoubleBinaryOperatorFactory {
                             ((PairOfDoubleCoefficients) obj).coeff1,
                             ((PairOfDoubleCoefficients) obj).coeff2
                         );
+                    } else {
+
+                        // Else return null
+                        return null;
                     }
 
                 // Case "Euclidean"
@@ -66,6 +70,10 @@ public class DoubleBinaryOperatorFactory {
                             ((TripleOfDoubleBinaryOperators) obj).operator2,
                             ((TripleOfDoubleBinaryOperators) obj).operator3
                         );
+                    } else {
+
+                        // Else return null
+                        return null;
                     }
 
                 // Default case (necessary to avoid endless loops)
