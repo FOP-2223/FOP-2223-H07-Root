@@ -16,6 +16,11 @@ public class DoubleBinaryOperatorFactory {
      * @return          The operator.
      */
     public static Object buildOperator(String str, Object obj, boolean bool) {
+        // If the given string is null, return null to avoid conflicts
+        if (str == null) {
+            return null;
+        }
+
         // If the third parameter encapsulates false:
         if (!bool) {
 

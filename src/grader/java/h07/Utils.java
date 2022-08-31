@@ -7,8 +7,11 @@ import h07.operators.DoubleSumOfTwo;
 import h07.operators.DoubleSumSqrtsOfTwo;
 import h07.doubleoperators.ComposedDoubleBinaryOperator;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.DoublePredicate;
@@ -169,6 +172,23 @@ public class Utils {
             double[] result = operator.applyAsDoubleArray(left, right);
 
             System.out.print(op1 + "; " + Arrays.toString(left) + "; " + Arrays.toString(right) + "; " + Arrays.toString(result));
+            System.out.println();
+        }
+    }
+
+    public static void generateRandomInputsForIllegalStringsTest() {
+        ArrayList<String> objects = new ArrayList<>();
+        objects.add("Object");
+        objects.add("null");
+        objects.add("PairOfDoubleCoefficients");
+        objects.add("TripleOfDoubleBinaryOperators");
+
+        for (int i = 0; i < 1000; i++) {
+            byte[] array = new byte[7]; // length is bounded by 7
+            new Random().nextBytes(array);
+            String generatedString = new String(array, StandardCharsets.UTF_8);
+
+            System.out.print(generatedString + ", " + objects.get(ThreadLocalRandom.current().nextInt(objects.size())));
             System.out.println();
         }
     }
