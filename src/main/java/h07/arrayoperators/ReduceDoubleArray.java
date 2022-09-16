@@ -16,7 +16,7 @@ public class ReduceDoubleArray implements DoubleArrayUnaryOperatorGivingArray {
     private final DoublePredicate predicate;
 
     /**
-     * Constructor initializes the predicate for reduction.
+     * Constructor initializes the predicate for the filter.
      *
      * @param predicate     The predicate.
      */
@@ -30,7 +30,7 @@ public class ReduceDoubleArray implements DoubleArrayUnaryOperatorGivingArray {
      * for which the predicate returns true.
      *
      * @param array     The array.
-     * @return          Reduced array.
+     * @return          The result of the filter.
      */
     @Override
     public double[] applyAsDoubleArray(double[] array) {

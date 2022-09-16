@@ -8,146 +8,220 @@ import java.util.function.DoubleBinaryOperator;
 public class DoubleBinaryOperatorFactory {
 
     /**
-     * Returns an operator depending on the given input parameters.
+     * Returns a lambda-expression that is logically equivalent to the implementation
+     * of applyAsDouble in DoubleSumWithCoefficientsOp. If the object encapsulates
+     * a PairOfDoubleCoefficients, the coefficients for the expression are taken
+     * directly from said object.
      *
-     * @param str       Sets the type of the operator.
-     * @param obj       Encapsulates features of operator.
-     * @param bool      Chooses style of operator creation.
-     * @return          The operator.
+     * @param obj   The object specifying the operation.
+     * @return      The lambda-expression.
      */
-    public static Object buildOperator(String str, Object obj, boolean bool) {
-        // If the given string is null, return null to avoid conflicts
-        if (str == null) {
-            return null;
+    private static DoubleBinaryOperator doubleSumWithCoefficientsOpAsLambda(Object obj) {
+        // Check whether parameter is of type PairOfDoubleCoefficients or subtype
+        if (obj instanceof PairOfDoubleCoefficients) {
+
+            // Return standard lambda-expression
+            return (double left, double right) -> {
+
+                // Completely equivalent to implementation of applyAsDouble in DoubleSumWithCoefficientsOp
+                // Take coefficients from the given object
+                return left * ((PairOfDoubleCoefficients) obj).coeff1 +
+                    right * ((PairOfDoubleCoefficients) obj).coeff2;
+            };
         }
 
-        // If the third parameter encapsulates false:
-        if (!bool) {
+        // Else return null
+        return null;
+    }
 
-            // switch-statement on given String in first parameter
-            switch (str) {
+    /**
+     * Returns a lambda-expression that is logically equivalent to the implementation
+     * of applyAsDouble in EuclideanNorm.
+     *
+     * @return  The lambda-expression
+     */
+    private static DoubleBinaryOperator euclideanNormAsLambda() {
+        // Return standard lambda-expression
+        return (double left, double right) -> {
 
-                // Case "Coeffs"
-                case "Coeffs":
+            // Completely equivalent to implementation of applyAsDouble in EuclideanNorm
+            return Math.sqrt(left * left + right * right);
+        };
+    }
 
-                    // Check whether second parameter is of type PairOfDoubleCoefficients
-                    if (obj instanceof PairOfDoubleCoefficients) {
+    /**
+     * Returns a lambda-expression that is logically equivalent to the implementation
+     * of applyAsDouble in DoubleMaxOfTwo. If the object encapsulates a Boolean and if
+     * said Boolean encapsulates true, a lambda-expression is returned. If it encapsulates
+     * false a method reference is returned.
+     *
+     * @param obj   The object specifying the operation.
+     * @return      The lambda-expression.
+     */
+    private static DoubleBinaryOperator doubleMaxOfTwoAsLambda(Object obj) {
+        // Check whether parameter is of type Boolean
+        if (obj instanceof Boolean) {
 
-                        // Return an object of type DoubleSumWithCoefficientsOp initialized
-                        // with the coefficients encapsulated in the second parameter
-                        return new DoubleSumWithCoefficientsOp(
-                            ((PairOfDoubleCoefficients) obj).coeff1,
-                            ((PairOfDoubleCoefficients) obj).coeff2
-                        );
-                    } else {
+            // Check whether boolean value is true by casting object to Boolean
+            if ((Boolean) obj) {
 
-                        // Else return null
-                        return null;
-                    }
+                // Return short lambda-expression but use "<"-operator for comparison
+                // Completely equivalent to implementation of applyAsDouble in DoubleMaxOfTwo
+                return (left, right) -> left < right ? right : left;
+            } else { // boolean value in Boolean is false
 
-                // Case "Euclidean"
-                case "Euclidean":
-
-                    // Return an object of type EuclideanNorm
-                    return new EuclideanNorm();
-
-                // Case "Max"
-                case "Max":
-
-                    // Return an object of type DoubleMaxOfTwo
-                    return new DoubleMaxOfTwo();
-
-                // Case "Composed"
-                case "Composed":
-
-                    // Check whether second parameter is of type TripleOfDoubleBinaryOperators
-                    if (obj instanceof TripleOfDoubleBinaryOperators) {
-
-                        // Return an object of type ComposedDoubleBinaryOperator initialized
-                        // with the operators encapsulated in the second parameter
-                        return new ComposedDoubleBinaryOperator(
-                            ((TripleOfDoubleBinaryOperators) obj).operator1,
-                            ((TripleOfDoubleBinaryOperators) obj).operator2,
-                            ((TripleOfDoubleBinaryOperators) obj).operator3
-                        );
-                    } else {
-
-                        // Else return null
-                        return null;
-                    }
-
-                // Default case (necessary to avoid endless loops)
-                default:
-
-                    // Return null
-                    return null;
+                // Return method reference of max()-method from class java.lang.Math
+                // Completely equivalent to implementation of applyAsDouble in DoubleMaxOfTwo
+                return Math::max;
             }
-        } else { // Third parameter encapsulates true
+        }
 
-            // Initialize a DoubleBinaryOperator
-            DoubleBinaryOperator operator = null;
+        // Else return null
+        return null;
+    }
 
-            // Case "Coeffs"
-            // Check whether second parameter is of type PairOfDoubleCoefficients
-            if (str.equals("Coeffs") && obj instanceof PairOfDoubleCoefficients) {
+    /**
+     * Returns a lambda-expression that is logically equivalent to the implementation
+     * of applyAsDouble in ComposedDoubleBinaryOperator. If the object encapsulates
+     * a TripleOfDoubleBinaryOperators, the operators for the expression are taken
+     * directly from said object.
+     *
+     * @param obj   The object specifying the operation.
+     * @return      The lambda-expression.
+     */
+    private static DoubleBinaryOperator composedDoubleBinaryOperatorAsLambda(Object obj) {
+        // Check whether parameter is of type TripleOfDoubleBinaryOperators or subtype
+        if (obj instanceof TripleOfDoubleBinaryOperators) {
 
-                // Assign regular lambda expression representing class DoubleSumWithCoefficientsOp
-                // to initialized operator
-                operator = (double left, double right) -> {
-                    return left * ((PairOfDoubleCoefficients) obj).coeff1 +
-                        right * ((PairOfDoubleCoefficients) obj).coeff2;
-                };
-            }
+            // Completely equivalent to implementation of applyAsDouble in ComposedDoubleBinaryOperator
+            // Take operators from the given object
+            return (left, right) -> (
+                (TripleOfDoubleBinaryOperators) obj).operator3.applyAsDouble(
+                ((TripleOfDoubleBinaryOperators) obj).operator1.applyAsDouble(left, right),
+                ((TripleOfDoubleBinaryOperators) obj).operator2.applyAsDouble(left, right)
+            );
+        }
 
-            // Case "Euclidean"
-            if (str.equals("Euclidean")) {
+        // Else return null
+        return null;
+    }
 
-                // Assign regular lambda expression representing class EuclideanNorm to initialized
-                // operator
-                operator = (double left, double right) -> {
-                    return Math.sqrt(left * left + right * right);
-                };
-            }
-
-            // Case "Max"
-            if (str.equals("Max")) {
-
-                // Check whether second parameter encapsulates a boolean value
-                if ((obj instanceof Boolean)) {
-
-                    // Check whether second parameter is true
-                    if ((Boolean) obj) {
-
-                        // Assign short lambda expression representing class DoubleMaxOfTwo with a
-                        // conditional expression to initialized operator
-                        operator = (left, right) -> left < right ? right : left;
-
-                    } else { // second parameter is false
-
-                        // Assign short lambda expression representing class DoubleMaxOfTwo with a
-                        // call of the max()-method from class java.lang.Math to initialized
-                        // operator
-                        operator = Math::max;
-                    }
-                }
-            }
-
-            // Case "Composed"
-            // Check whether second parameter is of type TripleOfDoubleBinaryOperators
-            if (str.equals("Composed") && obj instanceof TripleOfDoubleBinaryOperators) {
-
-                // Assign short lambda expression representing class ComposedDoubleBinaryOperator
-                // to initialized operator
-                operator = (left, right) ->
-                    ((TripleOfDoubleBinaryOperators) obj).operator3.applyAsDouble(
-                        ((TripleOfDoubleBinaryOperators) obj).operator1.applyAsDouble(left, right),
-                        ((TripleOfDoubleBinaryOperators) obj).operator2.applyAsDouble(left, right)
-                    );
-            }
-
-            // Return initialized operator
-            return operator;
+    /**
+     * Returns an operator depending on the given input parameters.
+     *
+     * @param str   The type of the operator.
+     * @param obj   The (optional) features of the operator.
+     * @param bool  The style of operator creation.
+     * @return      The operator.
+     */
+    public static Object buildOperator(String str, Object obj, boolean bool) {
+        if (bool) {
+            return buildOperatorWithNew(str, obj);
+        } else {
+            return buildOperatorWithLambda(str, obj);
         }
     }
 
+    /**
+     * Returns an operator that is created solely by using new.
+     *
+     * @param str   The type of the operator.
+     * @param obj   The (optional) features of the operator.
+     * @return      The operator.
+     */
+    private static Object buildOperatorWithNew(String str, Object obj) {
+        // switch-statement on first parameter
+        switch (str) {
+
+            // Case "Coeffs"
+            case "Coeffs":
+
+                // Check whether second parameter is of type PairOfDoubleCoefficients or subtype
+                if (obj instanceof PairOfDoubleCoefficients) {
+
+                    // Return an object of type DoubleSumWithCoefficientsOp
+                    // Coefficients are taken from second parameter
+                    return new DoubleSumWithCoefficientsOp(
+                        ((PairOfDoubleCoefficients) obj).coeff1,
+                        ((PairOfDoubleCoefficients) obj).coeff2
+                    );
+                }
+
+            // Case "Euclidean"
+            case "Euclidean":
+
+                // Return an object of type EuclideanNorm
+                return new EuclideanNorm();
+
+            // Case "Max"
+            case "Max":
+
+                // Return an object of type DoubleMaxOfTwo
+                return new DoubleMaxOfTwo();
+
+            // Case "Composed"
+            case "Composed":
+
+                // Check whether second parameter is of type TripleOfDoubleBinaryOperators or subtype
+                if (obj instanceof TripleOfDoubleBinaryOperators) {
+
+                    // Return an object of type ComposedDoubleBinaryOperator
+                    // Operators are taken from second parameter
+                    return new ComposedDoubleBinaryOperator(
+                        ((TripleOfDoubleBinaryOperators) obj).operator1,
+                        ((TripleOfDoubleBinaryOperators) obj).operator2,
+                        ((TripleOfDoubleBinaryOperators) obj).operator3
+                    );
+                }
+
+            // Default case (necessary to avoid endless loops)
+            default:
+
+                // Return null
+                return null;
+        }
+    }
+
+    /**
+     * Returns an operator that is created solely by using a lambda-expression.
+     *
+     * @param str   The type of the operator.
+     * @param obj   The (optional) features of the operator.
+     * @return      The operator.
+     */
+    private static Object buildOperatorWithLambda(String str, Object obj) {
+        // switch-statement on first parameter
+        return switch (str) {
+
+            // Case "Coeffs"
+            case "Coeffs" ->
+
+                // Method call of doubleSumWithCoefficientsOpAsLambda
+                doubleSumWithCoefficientsOpAsLambda(obj);
+
+            // Case "Euclidean"
+            case "Euclidean" ->
+
+                // Method call of euclideanNormAsLambda
+                euclideanNormAsLambda();
+
+            // Case "Max"
+            case "Max" ->
+
+                // Method call of doubleMaxOfTwoAsLambda
+                doubleMaxOfTwoAsLambda(obj);
+
+            // Case "Composed"
+            case "Composed" ->
+
+                // Method call of composedDoubleBinaryOperatorAsLambda
+                composedDoubleBinaryOperatorAsLambda(obj);
+
+            // Default case (necessary to avoid endless loops)
+            default ->
+
+                // Return null
+                null;
+        };
+    }
 }
