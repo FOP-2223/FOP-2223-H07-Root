@@ -1,4 +1,4 @@
-package h07.h2;
+package h07.h2_old;
 
 import h07.doubleoperators.PairOfDoubleCoefficients;
 import h07.doubleoperators.TripleOfDoubleBinaryOperators;

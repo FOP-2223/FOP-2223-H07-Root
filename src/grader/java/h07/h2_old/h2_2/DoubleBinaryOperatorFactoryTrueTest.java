@@ -1,4 +1,4 @@
-package h07.h2.h2_2;
+package h07.h2_old.h2_2;
 
 public class DoubleBinaryOperatorFactoryTrueTest {
 

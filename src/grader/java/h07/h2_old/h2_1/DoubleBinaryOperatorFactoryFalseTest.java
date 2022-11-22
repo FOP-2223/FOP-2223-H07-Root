@@ -1,4 +1,4 @@
-package h07.h2.h2_1;
+package h07.h2_old.h2_1;
 
 import h07.doubleoperators.*;
 import org.junit.jupiter.api.Test;
@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 import java.util.function.DoubleBinaryOperator;
 
 import static h07.Utils.*;
-import static h07.h2.H2Utils.*;
+import static h07.h2_old.H2Utils.*;
 import static h07.doubleoperators.DoubleBinaryOperatorFactory.buildOperator;
 import static org.junit.jupiter.api.Assertions.*;
 

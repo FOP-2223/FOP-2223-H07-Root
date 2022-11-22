@@ -1,12 +1,13 @@
-package h07.h1.h1_1;
+package h07.h2.h2_1;
 
 import h07.doubleoperators.DoubleSumWithCoefficientsOp;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static h07.Utils.getGeneralInfo;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 
+@TestForSubmission
 public class DoubleSumWithCoefficientsOpTest {
 
     private static final String PATH_TO_CSV = "/h1/DoubleSumWithCoefficientsOpTestInputs.csv";
@@ -14,6 +15,12 @@ public class DoubleSumWithCoefficientsOpTest {
     @ParameterizedTest
     @CsvFileSource(resources = PATH_TO_CSV, numLinesToSkip = 1)
     void applyAsDoubleTest(double coeff1, double coeff2, double left, double right, double expected) {
+        var context = contextBuilder()
+            .add("First coefficient", coeff1)
+            .add("Second coefficient", coeff2)
+            .add("Left value", left)
+            .add("Right value", right)
+            .build();
         DoubleSumWithCoefficientsOp op = new DoubleSumWithCoefficientsOp(coeff1, coeff2);
 
         double actual = op.applyAsDouble(left, right);
@@ -21,10 +28,13 @@ public class DoubleSumWithCoefficientsOpTest {
         assertEquals(
             expected,
             actual,
-            getGeneralInfo(
-                "Coefficient 1: " + coeff1 + ", coefficient 2: " + coeff2 +
-                    ", left value: " + left + ", right value: " + right
-            ) + "Expected \"applyAsDouble\" to return " + expected + " but it returned " + actual + " instead!"
+            context,
+            r -> String.format(
+                "Expected %s to return %f but it returned %f instead!",
+                "applyAsDouble",
+                expected,
+                actual
+            )
         );
     }
 

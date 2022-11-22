@@ -1,16 +1,18 @@
 package h07;
 
-import h07.h1.h1_1.DoubleSumWithCoefficientsOpTest;
-import h07.h1.h1_2.EuclideanNormTest;
-import h07.h1.h1_3.DoubleMaxOfTwoTest;
-import h07.h1.h1_4.ComposedDoubleBinaryOperatorTest;
+import h07.h1.h1_1.ReduceDoubleArrayTest;
+import h07.h1.h1_2.PairwiseDoubleArrayBinaryOperatorGivingArrayTest;
+import h07.h1.h1_3.PairwiseDoubleArrayBinaryOperatorGivingScalarTest;
+import h07.h2.h2_1.DoubleSumWithCoefficientsOpTest;
+import h07.h2.h2_2.EuclideanNormTest;
+import h07.h2.h2_3.DoubleMaxOfTwoTest;
+import h07.h2.h2_4.ComposedDoubleBinaryOperatorTest;
 import org.sourcegrade.jagr.api.rubric.*;
 
 import java.lang.reflect.Method;
 import java.util.concurrent.Callable;
 import java.util.function.BiFunction;
 
-@RubricForSubmission("h07")
 public class H07_RubricProvider implements RubricProvider {
 
     private static final BiFunction<String, Callable<Method>, Criterion> DEFAULT_CRITERION = (s, methodCallable) ->
@@ -25,7 +27,86 @@ public class H07_RubricProvider implements RubricProvider {
 
     private static final Criterion CRITERION_H1_1 = Criterion
         .builder()
-        .shortDescription("H1.1: Erste binäre Operatorklasse auf double")
+        .shortDescription("H1.1: Unäre Filter-Klasse auf „Array von double“")
+        .addChildCriteria(
+            DEFAULT_CRITERION.apply(
+                "Die Methode liefert korrekterweise \"null\" zurück, sollte sie mit \"null\" aufgerufen werden.",
+                () -> ReduceDoubleArrayTest.class.getDeclaredMethod("testNullInput")
+            ),
+            DEFAULT_CRITERION.apply(
+                "Die Rückgabe der Methode hat die korrekte Länge.",
+                () -> ReduceDoubleArrayTest.class.getDeclaredMethod("testLengthOfResult", String.class, String.class, String.class)
+            ),
+            DEFAULT_CRITERION.apply(
+                "Die Methode liefert korrekte Ergebnisse bei Verwendung verschiedener Operatoren.",
+                () -> ReduceDoubleArrayTest.class.getDeclaredMethod("testResult", String.class, String.class, String.class)
+            ),
+            DEFAULT_CRITERION.apply(
+                "Die Methode verändert das übergebene Array nicht.",
+                () -> ReduceDoubleArrayTest.class.getDeclaredMethod("testModificationOfInputArray", String.class, String.class)
+            )
+        )
+        .build();
+
+    private static final Criterion CRITERION_H1_2 = Criterion
+        .builder()
+        .shortDescription("H1.2: Binäre Map-Klasse auf „Array von double“")
+        .addChildCriteria(
+            DEFAULT_CRITERION.apply(
+                "Die Methode liefert korrekterweise \"null\" zurück, sollte einer ihrer Parameter ebenfalls \"null\" sein.",
+                () -> PairwiseDoubleArrayBinaryOperatorGivingArrayTest.class.getDeclaredMethod("testNullInput")
+            ),
+            DEFAULT_CRITERION.apply(
+                "Die Rückgabe der Methode hat die korrekte Länge.",
+                () -> PairwiseDoubleArrayBinaryOperatorGivingArrayTest.class.getDeclaredMethod("testLengthOfResult", String.class, String.class, String.class, String.class)
+            ),
+            DEFAULT_CRITERION.apply(
+                "Die Methode liefert korrekte Ergebnisse bei Verwendung verschiedener Operatoren.",
+                () -> PairwiseDoubleArrayBinaryOperatorGivingArrayTest.class.getDeclaredMethod("testResult", String.class, String.class, String.class, String.class)
+            ),
+            DEFAULT_CRITERION.apply(
+                "Die Methode verändert die übergebenen Arrays nicht.",
+                () -> PairwiseDoubleArrayBinaryOperatorGivingArrayTest.class.getDeclaredMethod("testModificationOfInputArrays", String.class, String.class, String.class, String.class)
+            )
+        )
+        .build();
+
+    private static final Criterion CRITERION_H1_3 = Criterion
+        .builder()
+        .shortDescription("H1.3: Binäre Fold-Klasse auf „Array von double“")
+        .addChildCriteria(
+            DEFAULT_CRITERION.apply(
+                "Die Methode liefert korrekterweise \"null\" zurück, sollte sie mit \"null\" aufgerufen werden.",
+                () -> PairwiseDoubleArrayBinaryOperatorGivingScalarTest.class.getDeclaredMethod("testNullInput")
+            ),
+            DEFAULT_CRITERION.apply(
+                "Die Methode liefert korrekte Ergebnisse bei Verwendung verschiedener Operatoren.",
+                () -> PairwiseDoubleArrayBinaryOperatorGivingScalarTest.class.getDeclaredMethod("testResult")
+            ),
+            DEFAULT_CRITERION.apply(
+                "Die Methode verwendet keine Rekursion.",
+                () -> PairwiseDoubleArrayBinaryOperatorGivingScalarTest.class.getDeclaredMethod("checkRecursion")
+            ),
+            DEFAULT_CRITERION.apply(
+                "Die Methode verwendet lediglich eine Schleife.",
+                () -> PairwiseDoubleArrayBinaryOperatorGivingScalarTest.class.getDeclaredMethod("checkLoops")
+            )
+        )
+        .build();
+
+    private static final Criterion CRITERION_H1 = Criterion
+        .builder()
+        .shortDescription("H1: Unäre und binäre Operatoren auf „Array von double“ als Functional Interfaces")
+        .addChildCriteria(
+            CRITERION_H1_1,
+            CRITERION_H1_2,
+            CRITERION_H1_3
+        )
+        .build();
+
+    private static final Criterion CRITERION_H2_1 = Criterion
+        .builder()
+        .shortDescription("H2.1: Erste binäre Operatorklasse auf double")
         .addChildCriteria(
             DEFAULT_CRITERION.apply(
                 "Method \"applyAsDouble\" works as intended.",
@@ -34,9 +115,9 @@ public class H07_RubricProvider implements RubricProvider {
         )
         .build();
 
-    private static final Criterion CRITERION_H1_2 = Criterion
+    private static final Criterion CRITERION_H2_2 = Criterion
         .builder()
-        .shortDescription("H1.2: Zweite binäre Operatorklasse auf double")
+        .shortDescription("H2.2: Zweite binäre Operatorklasse auf double")
         .addChildCriteria(
             DEFAULT_CRITERION.apply(
                 "Method \"applyAsDouble\" works as intended.",
@@ -45,9 +126,9 @@ public class H07_RubricProvider implements RubricProvider {
         )
         .build();
 
-    private static final Criterion CRITERION_H1_3 = Criterion
+    private static final Criterion CRITERION_H2_3 = Criterion
         .builder()
-        .shortDescription("H1.3: Dritte binäre Operatorklasse auf double")
+        .shortDescription("H2.3: Dritte binäre Operatorklasse auf double")
         .addChildCriteria(
             DEFAULT_CRITERION.apply(
                 "Method \"applyAsDouble\" works as intended.",
@@ -56,9 +137,9 @@ public class H07_RubricProvider implements RubricProvider {
         )
         .build();
 
-    private static final Criterion CRITERION_H1_4 = Criterion
+    private static final Criterion CRITERION_H2_4 = Criterion
         .builder()
-        .shortDescription("H1.4: Vierte binäre Operatorklasse auf double")
+        .shortDescription("H2.4: Vierte binäre Operatorklasse auf double")
         .addChildCriteria(
             DEFAULT_CRITERION.apply(
                 "Method \"applyAsDouble\" works as intended.",
@@ -67,36 +148,36 @@ public class H07_RubricProvider implements RubricProvider {
         )
         .build();
 
-    private static final Criterion CRITERION_H1 = Criterion
+    private static final Criterion CRITERION_H2 = Criterion
         .builder()
         .shortDescription("H1: Binäre Operatoren auf double als Functional Interfaces")
         .addChildCriteria(
-            CRITERION_H1_1,
-            CRITERION_H1_2,
-            CRITERION_H1_3,
-            CRITERION_H1_4
+            CRITERION_H2_1,
+            CRITERION_H2_2,
+            CRITERION_H2_3,
+            CRITERION_H2_4
         )
         .build();
 
-    private static final Criterion CRITERION_H2_1 = Criterion
+    private static final Criterion CRITERION_H2_1_old = Criterion
         .builder()
         .shortDescription("H2.1: Die Operatorenfabrik")
         .addChildCriteria()
         .build();
 
-    private static final Criterion CRITERION_H2_2 = Criterion
+    private static final Criterion CRITERION_H2_2_old = Criterion
         .builder()
         .shortDescription("H2.2: Operatoren mittels new")
         .addChildCriteria()
         .build();
 
-    private static final Criterion CRITERION_H2_3 = Criterion
+    private static final Criterion CRITERION_H2_3_old = Criterion
         .builder()
         .shortDescription("H2.3: Operatoren mittels Lambda-Ausdrücken in Kurzform und Standardform")
         .addChildCriteria()
         .build();
 
-    private static final Criterion CRITERION_H2 = Criterion
+    /*private static final Criterion CRITERION_H2 = Criterion
         .builder()
         .shortDescription("H2: Lambda-Ausdrücke in Kurzform und Standardform in „Operatorenfabrik“")
         .addChildCriteria(
@@ -104,42 +185,14 @@ public class H07_RubricProvider implements RubricProvider {
             CRITERION_H2_2,
             CRITERION_H2_3
         )
-        .build();
-
-    private static final Criterion CRITERION_H3_1 = Criterion
-        .builder()
-        .shortDescription("H3.1: Unäre Filter-Klasse auf „Array von double“")
-        .addChildCriteria()
-        .build();
-
-    private static final Criterion CRITERION_H3_2 = Criterion
-        .builder()
-        .shortDescription("H3.2: Binäre Map-Klasse auf „Array von double“")
-        .addChildCriteria()
-        .build();
-
-    private static final Criterion CRITERION_H3_3 = Criterion
-        .builder()
-        .shortDescription("H3.3: Binäre Fold-Klasse auf „Array von double“")
-        .addChildCriteria()
-        .build();
-
-    private static final Criterion CRITERION_H3 = Criterion
-        .builder()
-        .shortDescription("H3: Unäre und binäre Operatoren auf „Array von double“ als Functional Interfaces")
-        .addChildCriteria(
-            CRITERION_H3_1,
-            CRITERION_H3_2,
-            CRITERION_H3_3
-        )
-        .build();
+        .build();*/
 
     public static final Rubric RUBRIC = Rubric.builder()
         .title("H07")
         .addChildCriteria(
             CRITERION_H1,
-            CRITERION_H2,
-            CRITERION_H3
+            CRITERION_H2
+            //CRITERION_H3
         )
         .build();
 

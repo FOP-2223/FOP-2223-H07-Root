@@ -1,9 +1,9 @@
-package h07.h3;
+package h07.h1;
 
 import java.util.Arrays;
 import java.util.Objects;
 
-public class H3Utils {
+public class H1Utils {
 
     public static double[] convertStringToDoubleArray(String arrayAsString) {
         arrayAsString = arrayAsString.substring(1, arrayAsString.length() - 1);

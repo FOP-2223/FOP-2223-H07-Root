@@ -13,7 +13,7 @@ public class ReduceDoubleArray implements DoubleArrayUnaryOperatorGivingArray {
     /**
      * The predicate.
      */
-    private final DoublePredicate predicate;
+    private final DoublePredicate PREDICATE;
 
     /**
      * Constructor initializes the predicate for the filter.
@@ -22,7 +22,7 @@ public class ReduceDoubleArray implements DoubleArrayUnaryOperatorGivingArray {
      */
     public ReduceDoubleArray(DoublePredicate predicate) {
         // Assign given parameter to predicate
-        this.predicate = predicate;
+        this.PREDICATE = predicate;
     }
 
     /**
@@ -48,7 +48,7 @@ public class ReduceDoubleArray implements DoubleArrayUnaryOperatorGivingArray {
         for (double d : array) {
 
             // Check whether predicate.test returns true
-            if (predicate.test(d)) {
+            if (PREDICATE.test(d)) {
 
                 // Increase size for reduced array
                 n++;
@@ -65,7 +65,7 @@ public class ReduceDoubleArray implements DoubleArrayUnaryOperatorGivingArray {
         for (double d : array) {
 
             // Check whether predicate.test returns true
-            if (predicate.test(d)) {
+            if (PREDICATE.test(d)) {
 
                 // Assign value in original array to reduced array and increase index
                 result[n++] = d;
