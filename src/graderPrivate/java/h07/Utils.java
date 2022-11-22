@@ -18,10 +18,7 @@ import java.util.function.DoublePredicate;
 
 public class Utils {
 
-    public static String getGeneralInfo(String information) {
-        return "General Information:\n" + information +
-            "\nTest failed because:\n";
-    }
+    private static final int NUMBER_TESTCASES = 10000;
 
     public static DoubleBinaryOperator convertStringToOperator(String op) {
         switch (op) {
@@ -49,6 +46,46 @@ public class Utils {
                 break;
         }
         return null;
+    }
+
+    private static String getRandomPredicateAsString() {
+        String[] predicates = {"IsPositive", "DivisibleByTwo", "IsNotNaN"};
+        return predicates[ThreadLocalRandom.current().nextInt(predicates.length)];
+    }
+
+    public static void printTestCasesH1_1() {
+        for (int i = 0; i < NUMBER_TESTCASES; i++) {
+            String predicateAsString = getRandomPredicateAsString();
+            ReduceDoubleArray reducer = new ReduceDoubleArray(convertStringToPredicate(predicateAsString));
+            double[] input = ThreadLocalRandom.current().doubles(
+                ThreadLocalRandom.current().nextInt(1, 10),
+                -1,
+                1
+            ).toArray();
+
+            if (predicateAsString.equals("IsNotNaN"))
+                for (int j = 0; j < ThreadLocalRandom.current().nextInt(input.length); j++) {
+                    input[ThreadLocalRandom.current().nextInt(input.length)] = Double.NaN;
+                }
+
+            double[] result = reducer.applyAsDoubleArray(input);
+
+            System.out.printf(
+                "%s; %s; %s",
+                predicateAsString,
+                Arrays.toString(input),
+                Arrays.toString(result)
+            );
+            System.out.println();
+        }
+    }
+
+    public static void printTestCasesH1_2() {
+
+    }
+
+    public static void printTestCasesH1_3() {
+
     }
 
     public static void generateRandomInputsForDoubleSumWithCoefficientsOpTest() {

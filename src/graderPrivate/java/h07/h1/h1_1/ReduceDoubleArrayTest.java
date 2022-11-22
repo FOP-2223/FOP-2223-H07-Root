@@ -14,7 +14,12 @@ import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 
 public class ReduceDoubleArrayTest {
 
-    private static final String PATH_TO_CSV = "/h3/ReduceDoubleArrayTest.csv";
+    @Test
+    void printTestCases() {
+        printTestCasesH1_1();
+    }
+
+    private static final String PATH_TO_CSV = "/h1/h1_1/PrivateTestcases.csv";
 
     @Test
     void testNullInput() {
