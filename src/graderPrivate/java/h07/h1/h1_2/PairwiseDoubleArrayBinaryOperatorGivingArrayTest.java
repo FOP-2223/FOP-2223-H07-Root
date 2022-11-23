@@ -134,6 +134,9 @@ public class PairwiseDoubleArrayBinaryOperatorGivingArrayTest {
                     Arrays.toString(left)
                 )
             );
+        }
+
+        for (int i = 0; i < right.length; i++) {
             assertEquals(
                 rightCopy[i],
                 right[i],

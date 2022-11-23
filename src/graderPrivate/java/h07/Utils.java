@@ -1,11 +1,13 @@
 package h07;
 
 import h07.arrayoperators.PairwiseDoubleArrayBinaryOperatorGivingArray;
+import h07.arrayoperators.PairwiseDoubleArrayBinaryOperatorGivingScalar;
 import h07.arrayoperators.ReduceDoubleArray;
 import h07.operators.DoubleProductOfTwo;
 import h07.operators.DoubleSumOfTwo;
 import h07.operators.DoubleSumSqrtsOfTwo;
 import h07.doubleoperators.ComposedDoubleBinaryOperator;
+import org.junit.jupiter.api.Test;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -16,9 +18,16 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.DoublePredicate;
 
+import static h07.h1.H1Utils.convertStringToDoubleArray;
+
 public class Utils {
 
-    private static final int NUMBER_TESTCASES = 10000;
+    @Test
+    void printTestCases() {
+        printTestCasesH2_3();
+    }
+
+    private static final int NUMBER_TESTCASES = 1000;
 
     public static DoubleBinaryOperator convertStringToOperator(String op) {
         switch (op) {
@@ -53,6 +62,11 @@ public class Utils {
         return predicates[ThreadLocalRandom.current().nextInt(predicates.length)];
     }
 
+    private static String getRandomOperatorAsString() {
+        String[] operators = {"DoubleProductOfTwo", "DoubleSumOfTwo", "DoubleSumSqrtsOfTwo"};
+        return operators[ThreadLocalRandom.current().nextInt(operators.length)];
+    }
+
     public static void printTestCasesH1_1() {
         for (int i = 0; i < NUMBER_TESTCASES; i++) {
             String predicateAsString = getRandomPredicateAsString();
@@ -81,40 +95,132 @@ public class Utils {
     }
 
     public static void printTestCasesH1_2() {
+        for (int i = 0; i < NUMBER_TESTCASES; i++) {
+            String operatorAsString = getRandomOperatorAsString();
+            PairwiseDoubleArrayBinaryOperatorGivingArray reducer = new PairwiseDoubleArrayBinaryOperatorGivingArray(
+                convertStringToOperator(operatorAsString)
+            );
+            double[] left = ThreadLocalRandom.current().doubles(
+                ThreadLocalRandom.current().nextInt(1, 10),
+                -1,
+                1
+            ).toArray();
 
+            double[] right = ThreadLocalRandom.current().doubles(
+                ThreadLocalRandom.current().nextInt(1, 10),
+                -1,
+                1
+            ).toArray();
+
+            double[] result = reducer.applyAsDoubleArray(left, right);
+
+            System.out.printf(
+                "%s; %s; %s; %s",
+                operatorAsString,
+                Arrays.toString(left),
+                Arrays.toString(right),
+                Arrays.toString(result)
+            );
+            System.out.println();
+        }
     }
 
     public static void printTestCasesH1_3() {
+        for (int i = 0; i < NUMBER_TESTCASES; i++) {
+            String firstOperatorAsString = getRandomOperatorAsString();
+            String secondOperatorAsString = getRandomOperatorAsString();
+            double init = ThreadLocalRandom.current().nextDouble(-10, 10);
+            init = 10.0;
+            PairwiseDoubleArrayBinaryOperatorGivingScalar reducer = new PairwiseDoubleArrayBinaryOperatorGivingScalar(
+                convertStringToOperator(firstOperatorAsString),
+                convertStringToOperator(secondOperatorAsString),
+                init
+            );
 
+            double[] left = ThreadLocalRandom.current().doubles(
+                ThreadLocalRandom.current().nextInt(1, 10),
+                -1,
+                1
+            ).toArray();
+
+            double[] right = ThreadLocalRandom.current().doubles(
+                ThreadLocalRandom.current().nextInt(1, 10),
+                -1,
+                1
+            ).toArray();
+
+            double result = reducer.applyAsDoubleArray(
+                left,
+                right
+            );
+
+            System.out.printf(
+                "%s; %s; %s; %s; %s; %s",
+                firstOperatorAsString,
+                secondOperatorAsString,
+                init,
+                Arrays.toString(left),
+                Arrays.toString(right),
+                result
+            );
+            System.out.println();
+        }
     }
 
-    public static void generateRandomInputsForDoubleSumWithCoefficientsOpTest() {
-        double coeff1 = ThreadLocalRandom.current().nextDouble(-1, 1);
-        double coeff2 = ThreadLocalRandom.current().nextDouble(-1, 1);
-        double left = ThreadLocalRandom.current().nextDouble(-1, 1);
-        double right = ThreadLocalRandom.current().nextDouble(-1, 1);
-        double result = coeff1 * left + coeff2 * right;
+    public static void printTestCasesH2_1() {
+        for (int i = 0; i < NUMBER_TESTCASES; i++) {
+            double coeff1 = ThreadLocalRandom.current().nextDouble(-1, 1);
+            double coeff2 = ThreadLocalRandom.current().nextDouble(-1, 1);
+            double left = ThreadLocalRandom.current().nextDouble(-1, 1);
+            double right = ThreadLocalRandom.current().nextDouble(-1, 1);
+            double result = coeff1 * left + coeff2 * right;
 
-        System.out.print(coeff1 + ", " + coeff2 + ", " + left + ", " + right + ", " + result);
-        System.out.println();
+            System.out.printf(
+                "%s; %s; %s; %s; %s",
+                coeff1,
+                coeff2,
+                left,
+                right,
+                result
+            );
+            System.out.println();
+        }
     }
 
-    public static void generateRandomInputsForEuclideanNormTest() {
-        double left = ThreadLocalRandom.current().nextDouble(-1, 1);
-        double right = ThreadLocalRandom.current().nextDouble(-1, 1);
-        double result = Math.sqrt(Math.pow(left, 2) + Math.pow(right, 2));
+    public static void printTestCasesH2_2() {
+        for (int i = 0; i < NUMBER_TESTCASES; i++) {
+            double left = ThreadLocalRandom.current().nextDouble(-1, 1);
+            double right = ThreadLocalRandom.current().nextDouble(-1, 1);
+            double result = Math.sqrt(Math.pow(left, 2) + Math.pow(right, 2));
 
-        System.out.print(left + ", " + right + ", " + result);
-        System.out.println();
+            System.out.printf(
+                "%s; %s; %s",
+                left,
+                right,
+                result
+            );
+            System.out.println();
+        }
+    }
+
+    public static void printTestCasesH2_3() {
+        for (int i = 0; i < NUMBER_TESTCASES; i++) {
+            double left = ThreadLocalRandom.current().nextDouble(-1, 1);
+            double right = ThreadLocalRandom.current().nextDouble(-1, 1);
+            double result = Math.max(left, right);
+
+            System.out.printf(
+                "%s; %s; %s",
+                left,
+                right,
+                result
+            );
+            System.out.println();
+        }
     }
 
     public static void generateRandomInputsForDoubleMaxOfTwoTest() {
-        double left = ThreadLocalRandom.current().nextDouble(-1, 1);
-        double right = ThreadLocalRandom.current().nextDouble(-1, 1);
-        double result = Math.max(left, right);
 
-        System.out.print(left + ", " + right + ", " + result);
-        System.out.println();
     }
 
     public void generateRandomInputsForComposedDoubleBinaryOperatorTest() {
