@@ -22,7 +22,7 @@ import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 @TestForSubmission
 public class EuclideanNormAsLambdaTest {
 
-    private static final String PATH_TO_CSV = "/h2/h2_2/PrivateTestcases.csv";
+    private static final String PATH_TO_CSV = "/h3/h3_2/PublicTestcases.csv";
 
     private static final ClassTester<?> FACTORY_CT = getClassTester("h07", "DoubleBinaryOperatorFactory");
 

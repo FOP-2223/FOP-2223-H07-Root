@@ -10,7 +10,7 @@ import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 @TestForSubmission
 public class EuclideanNormTest {
 
-    private static final String PATH_TO_CSV = "/h2/h2_2/PrivateTestcases.csv";
+    private static final String PATH_TO_CSV = "/h2/h2_2/PublicTestcases.csv";
 
     private static final EuclideanNorm EUCLIDEAN_NORM = new EuclideanNorm();
 

@@ -14,14 +14,13 @@ import h07.h3.h3_4.ComposedDoubleBinaryOperatorAsLambdaTest;
 import h07.h4.h4_1.BuildOperatorTest;
 import h07.h4.h4_2.BuildOperatorWithNewTest;
 import h07.h4.h4_3.BuildOperatorWithLambdaTest;
-import org.apache.commons.lang3.function.TriFunction;
 import org.sourcegrade.jagr.api.rubric.*;
 
 import java.lang.reflect.Method;
 import java.util.concurrent.Callable;
 import java.util.function.BiFunction;
 
-public class H07_RubricProvider implements RubricProvider {
+public class Testr implements RubricProvider {
 
     private static final BiFunction<String, Callable<Method>, Criterion> DEFAULT_CRITERION = (s, methodCallable) ->
         Criterion.builder()
@@ -33,18 +32,6 @@ public class H07_RubricProvider implements RubricProvider {
                 .build())
             .build();
 
-    private static final TriFunction<String, Callable<Method>, Integer, Criterion> DEFAULT_CRITERION_WITH_POINTS = (s, methodCallable, maxPoints) ->
-        Criterion.builder()
-            .shortDescription(s)
-            .grader(Grader.testAwareBuilder()
-                .requirePass(JUnitTestRef.ofMethod(methodCallable))
-                .pointsFailedMin()
-                .pointsPassedMax()
-                .build()
-            )
-            .maxPoints(maxPoints)
-            .build();
-
     private static final Criterion CRITERION_H1_1 = Criterion
         .builder()
         .shortDescription("H1.1: Unäre Filter-Klasse auf \"Array von double\"")
@@ -54,16 +41,8 @@ public class H07_RubricProvider implements RubricProvider {
                 () -> ReduceDoubleArrayTest.class.getDeclaredMethod("testNullInput")
             ),
             DEFAULT_CRITERION.apply(
-                "Die Rückgabe der Methode hat die korrekte Länge.",
-                () -> ReduceDoubleArrayTest.class.getDeclaredMethod("testLengthOfResult", String.class, String.class, String.class)
-            ),
-            DEFAULT_CRITERION.apply(
                 "Die Methode liefert korrekte Ergebnisse bei Verwendung verschiedener Operatoren.",
                 () -> ReduceDoubleArrayTest.class.getDeclaredMethod("testResult", String.class, String.class, String.class)
-            ),
-            DEFAULT_CRITERION.apply(
-                "Die Methode verändert das übergebene Array nicht.",
-                () -> ReduceDoubleArrayTest.class.getDeclaredMethod("testModificationOfInputArray", String.class, String.class)
             )
         )
         .build();
@@ -77,16 +56,8 @@ public class H07_RubricProvider implements RubricProvider {
                 () -> PairwiseDoubleArrayBinaryOperatorGivingArrayTest.class.getDeclaredMethod("testNullInput")
             ),
             DEFAULT_CRITERION.apply(
-                "Die Rückgabe der Methode hat die korrekte Länge.",
-                () -> PairwiseDoubleArrayBinaryOperatorGivingArrayTest.class.getDeclaredMethod("testLengthOfResult", String.class, String.class, String.class, String.class)
-            ),
-            DEFAULT_CRITERION.apply(
                 "Die Methode liefert korrekte Ergebnisse bei Verwendung verschiedener Operatoren.",
                 () -> PairwiseDoubleArrayBinaryOperatorGivingArrayTest.class.getDeclaredMethod("testResult", String.class, String.class, String.class, String.class)
-            ),
-            DEFAULT_CRITERION.apply(
-                "Die Methode verändert die übergebenen Arrays nicht.",
-                () -> PairwiseDoubleArrayBinaryOperatorGivingArrayTest.class.getDeclaredMethod("testModificationOfInputArrays", String.class, String.class, String.class, String.class)
             )
         )
         .build();
@@ -102,10 +73,6 @@ public class H07_RubricProvider implements RubricProvider {
             DEFAULT_CRITERION.apply(
                 "Die Methode verwendet keine Rekursion.",
                 () -> PairwiseDoubleArrayBinaryOperatorGivingScalarTest.class.getDeclaredMethod("checkRecursion", String.class, String.class, String.class, String.class, String.class)
-            ),
-            DEFAULT_CRITERION.apply(
-                "Die Methode verwendet lediglich eine Schleife.",
-                () -> PairwiseDoubleArrayBinaryOperatorGivingScalarTest.class.getDeclaredMethod("checkLoops")
             )
         )
         .build();
@@ -220,10 +187,6 @@ public class H07_RubricProvider implements RubricProvider {
             DEFAULT_CRITERION.apply(
                 "Die Methode verwendet im Falle von false eine Methodenreferenz auf die Methode max der Klasse Math.",
                 () -> DoubleMaxOfTwoAsLambdaTest.class.getDeclaredMethod("testMethodReference")
-            ),
-            DEFAULT_CRITERION.apply(
-                "Die Methode verwendet im Falle von true einen Lambda-Ausdruck mit dem Bedingungsoperator \"<\".",
-                () -> DoubleMaxOfTwoAsLambdaTest.class.getDeclaredMethod("testComparisonOperator")
             )
         )
         .build();
@@ -288,11 +251,6 @@ public class H07_RubricProvider implements RubricProvider {
         .builder()
         .shortDescription("H4.3: Operatoren mittels Lambda-Ausdrücken")
         .addChildCriteria(
-            DEFAULT_CRITERION_WITH_POINTS.apply(
-                "Die Methode besteht lediglich aus einem return-Statement.",
-                () -> BuildOperatorWithLambdaTest.class.getDeclaredMethod("checkUseOfOnlyReturnStatement"),
-                2
-            ),
             DEFAULT_CRITERION.apply(
                 "Die Methode verwendet in ihrem return-Statement einen switch-Block.",
                 () -> BuildOperatorWithLambdaTest.class.getDeclaredMethod("testSwitch")

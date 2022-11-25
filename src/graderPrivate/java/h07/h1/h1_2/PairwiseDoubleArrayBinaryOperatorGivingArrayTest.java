@@ -17,7 +17,7 @@ import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 @TestForSubmission
 public class PairwiseDoubleArrayBinaryOperatorGivingArrayTest {
 
-    private static final String PATH_TO_CSV = "/h3/PairwiseDoubleArrayBinaryOperatorGivingArrayTest.csv";
+    private static final String PATH_TO_CSV = "/h1/h1_2/PrivateTestcases.csv";
 
     @Test
     void testNullInput() {

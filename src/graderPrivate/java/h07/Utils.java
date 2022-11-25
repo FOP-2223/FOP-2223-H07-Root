@@ -39,7 +39,7 @@ public class Utils {
 
     @Test
     void printTestCases() {
-        printTestCasesH2_4();
+        printTestCasesH3_4();
     }
 
     private static final int NUMBER_TESTCASES = 1000;

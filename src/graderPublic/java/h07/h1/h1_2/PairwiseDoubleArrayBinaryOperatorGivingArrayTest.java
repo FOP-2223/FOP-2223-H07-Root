@@ -17,7 +17,7 @@ import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 @TestForSubmission
 public class PairwiseDoubleArrayBinaryOperatorGivingArrayTest {
 
-    private static final String PATH_TO_CSV = "/h3/PairwiseDoubleArrayBinaryOperatorGivingArrayTest.csv";
+    private static final String PATH_TO_CSV = "/h1/h1_2/PublicTestcases.csv";
 
     @Test
     void testNullInput() {
@@ -60,95 +60,6 @@ public class PairwiseDoubleArrayBinaryOperatorGivingArrayTest {
                 .build(),
             r ->"Expected the method to return null when both of the given arguments are null!"
         );
-    }
-
-    @ParameterizedTest
-    @CsvFileSource(resources = PATH_TO_CSV, numLinesToSkip = 1, delimiter = ';')
-    void testLengthOfResult(String op1, String leftArray, String rightArray, String result) {
-        DoubleBinaryOperator operator1 = convertStringToOperator(op1);
-
-        double[] left = convertStringToDoubleArray(leftArray);
-        double[] right = convertStringToDoubleArray(rightArray);
-        double[] expected = convertStringToDoubleArray(result);
-
-        var context = contextBuilder()
-            .add("Operator", op1)
-            .add("Left Array", Arrays.toString(left))
-            .add("Right Array", Arrays.toString(right))
-            .build();
-
-        PairwiseDoubleArrayBinaryOperatorGivingArray operator = new PairwiseDoubleArrayBinaryOperatorGivingArray(operator1);
-
-        call(
-            () -> operator.applyAsDoubleArray(left, right),
-            context,
-            r -> "Call resulted in an error"
-        );
-
-        double[] actual = operator.applyAsDoubleArray(left, right);
-
-        int expectedLength = expected.length;
-        int actualLength = actual.length;
-
-        assertEquals(
-            expectedLength,
-            actualLength,
-            context,
-            r -> String.format(
-                "Expected resulting array to have length %d but it actually has length %d!",
-                expectedLength,
-                actualLength
-            )
-        );
-    }
-
-    @ParameterizedTest
-    @CsvFileSource(resources = PATH_TO_CSV, numLinesToSkip = 1, delimiter = ';')
-    void testModificationOfInputArrays(String op1, String leftArray, String rightArray, String result) {
-        DoubleBinaryOperator operator1 = convertStringToOperator(op1);
-
-        double[] left = convertStringToDoubleArray(leftArray);
-        double[] leftCopy = Arrays.copyOf(left, left.length);
-        double[] right = convertStringToDoubleArray(rightArray);
-        double[] rightCopy = Arrays.copyOf(right, right.length);
-
-        var context = contextBuilder()
-            .add("Operator", op1)
-            .add("Left Array", Arrays.toString(left))
-            .add("Right Array", Arrays.toString(right))
-            .build();
-
-        PairwiseDoubleArrayBinaryOperatorGivingArray operator = new PairwiseDoubleArrayBinaryOperatorGivingArray(operator1);
-
-        call(
-            () -> operator.applyAsDoubleArray(left, right),
-            context,
-            r -> "Call resulted in an error"
-        );
-
-        for (int i = 0; i < left.length; i++) {
-            assertEquals(
-                leftCopy[i],
-                left[i],
-                context,
-                r -> String.format(
-                    "Did not expect any input array to be modified but the left input was modified to look like %s after the call",
-                    Arrays.toString(left)
-                )
-            );
-        }
-
-        for (int i = 0; i < right.length; i++) {
-            assertEquals(
-                rightCopy[i],
-                right[i],
-                context,
-                r -> String.format(
-                    "Did not expect any input array to be modified but the right input was modified to look like %s after the call",
-                    Arrays.toString(right)
-                )
-            );
-        }
     }
 
     @ParameterizedTest

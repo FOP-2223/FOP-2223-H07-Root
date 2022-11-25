@@ -19,7 +19,7 @@ import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 @TestForSubmission
 public class PairwiseDoubleArrayBinaryOperatorGivingScalarTest {
 
-    private static final String PATH_TO_CSV = "/h1/h1_3/PrivateTestcases.csv";
+    private static final String PATH_TO_CSV = "/h1/h1_3/PublicTestcases.csv";
 
     @ParameterizedTest
     @CsvFileSource(resources = PATH_TO_CSV, numLinesToSkip = 1, delimiter = ';')
@@ -97,20 +97,6 @@ public class PairwiseDoubleArrayBinaryOperatorGivingScalarTest {
             () -> Mockito.verify(operatorSpy, Mockito.atMostOnce()).applyAsDoubleArray(Mockito.any(), Mockito.any()),
             context,
             r -> "No recursion allowed"
-        );
-    }
-
-    @Test
-    void checkLoops() {
-        Launcher launcher = getSpoonLauncherForClass(
-            "h07.arrayoperators",
-            "PairwiseDoubleArrayBinaryOperatorGivingScalar"
-        );
-        assertEquals(
-            1,
-            launcher.getModel().getElements(element -> element instanceof CtLoop).size(),
-            emptyContext(),
-            r -> "Expected the method to only contain a single loop!"
         );
     }
 }

@@ -93,19 +93,6 @@ public class BuildOperatorWithLambdaTest {
         );
     }
 
-    @Test
-    void checkUseOfOnlyReturnStatement() {
-        List<CtElement> elements = BUILD_OPERATOR_WITH_LAMBDA_METHOD.getBody().getDirectChildren();
-        assertTrue(
-            elements.get(0) instanceof CtReturnImpl<?>,
-            emptyContext(),
-            r -> String.format(
-                "Expected method to only consists of a return-statement but found the following additional statements: %s!",
-                elements.stream().filter(e -> !(e instanceof CtReturnImpl<?>)).toList()
-            )
-        );
-    }
-
     private CtLiteralImpl<?> getLiteralOfCase(CtCaseImpl<?> caze) {
         return caze.getDirectChildren().stream().filter(e -> e instanceof CtLiteralImpl).toList().isEmpty() ?
             null : (CtLiteralImpl<?>) caze.getDirectChildren().stream().filter(e -> e instanceof CtLiteralImpl).toList().get(0);

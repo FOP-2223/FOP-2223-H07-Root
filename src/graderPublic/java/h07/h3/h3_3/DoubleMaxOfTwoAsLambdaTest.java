@@ -26,7 +26,7 @@ import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 @TestForSubmission
 public class DoubleMaxOfTwoAsLambdaTest {
 
-    private static final String PATH_TO_CSV = "/h2/h2_3/PrivateTestcases.csv";
+    private static final String PATH_TO_CSV = "/h3/h3_3/PublicTestcases.csv";
 
     private static final ClassTester<?> FACTORY_CT = getClassTester("h07", "DoubleBinaryOperatorFactory");
 
@@ -151,21 +151,6 @@ public class DoubleMaxOfTwoAsLambdaTest {
                 "Expected the method to contain a lambda method reference of method max() in class Math but instead found the following method reference: %s!",
                 maxCall
             )
-        );
-    }
-
-    @Test
-    void testComparisonOperator() {
-        Launcher launcher = getSpoonLauncherForClass("h07", "DoubleBinaryOperatorFactory");
-        CtMethod<?> method = getCtMethod(launcher, "doubleMaxOfTwoAsLambda");
-
-        assertFalse(
-            method.getElements(
-                element -> element instanceof CtBinaryOperatorImpl
-                && ((CtBinaryOperatorImpl<?>) element).getKind().equals(BinaryOperatorKind.LT)
-            ).isEmpty(),
-            emptyContext(),
-            r -> "Expected the method to contain a lambda expression with the binary operator \"<\"!"
         );
     }
 

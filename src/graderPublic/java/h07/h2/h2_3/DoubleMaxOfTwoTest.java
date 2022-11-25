@@ -10,7 +10,7 @@ import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 @TestForSubmission
 public class DoubleMaxOfTwoTest {
 
-    private static final String PATH_TO_CSV = "/h2/h2_3/PrivateTestcases.csv";
+    private static final String PATH_TO_CSV = "/h2/h2_3/PublicTestcases.csv";
 
     private static final DoubleMaxOfTwo OP = new DoubleMaxOfTwo();
 

@@ -13,7 +13,7 @@ import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 @TestForSubmission
 public class ComposedDoubleBinaryOperatorTest {
 
-    private static final String PATH_TO_CSV = "/h2/h2_4/PrivateTestcases.csv";
+    private static final String PATH_TO_CSV = "/h2/h2_4/PublicTestcases.csv";
 
     @ParameterizedTest
     @CsvFileSource(resources = PATH_TO_CSV, numLinesToSkip = 1, delimiter = ';')

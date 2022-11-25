@@ -25,7 +25,7 @@ import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 @TestForSubmission
 public class DoubleSumWithCoefficientsOpAsLambdaTest {
 
-    private static final String PATH_TO_CSV = "/h3/h3_1/PrivateTestcases.csv";
+    private static final String PATH_TO_CSV = "/h3/h3_1/PublicTestcases.csv";
 
     private static final ClassTester<?> FACTORY_CT = getClassTester("h07", "DoubleBinaryOperatorFactory");
 

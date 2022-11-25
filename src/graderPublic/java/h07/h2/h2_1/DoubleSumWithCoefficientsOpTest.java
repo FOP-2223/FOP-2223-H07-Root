@@ -10,7 +10,7 @@ import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 @TestForSubmission
 public class DoubleSumWithCoefficientsOpTest {
 
-    private static final String PATH_TO_CSV = "/h2/h2_1/PrivateTestcases.csv";
+    private static final String PATH_TO_CSV = "/h2/h2_1/PublicTestcases.csv";
 
     @ParameterizedTest
     @CsvFileSource(resources = PATH_TO_CSV, numLinesToSkip = 1, delimiter = ';')
