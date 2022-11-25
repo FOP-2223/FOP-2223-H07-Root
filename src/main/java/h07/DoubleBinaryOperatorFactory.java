@@ -1,4 +1,6 @@
-package h07.doubleoperators;
+package h07;
+
+import h07.doubleoperators.*;
 
 import java.util.function.DoubleBinaryOperator;
 
@@ -19,7 +21,6 @@ public class DoubleBinaryOperatorFactory {
     private static DoubleBinaryOperator doubleSumWithCoefficientsOpAsLambda(Object obj) {
         // Check whether parameter is of type PairOfDoubleCoefficients or subtype
         if (obj instanceof PairOfDoubleCoefficients) {
-
             // Return standard lambda-expression
             return (double left, double right) -> {
 

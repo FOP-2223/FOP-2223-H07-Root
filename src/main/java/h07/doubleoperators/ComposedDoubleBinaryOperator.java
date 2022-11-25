@@ -13,17 +13,17 @@ public class ComposedDoubleBinaryOperator implements DoubleBinaryOperator {
     /**
      * First operator.
      */
-    private final DoubleBinaryOperator op1;
+    private final DoubleBinaryOperator OP_1;
 
     /**
      * Second operator.
      */
-    private final DoubleBinaryOperator op2;
+    private final DoubleBinaryOperator OP_2;
 
     /**
      * Third operator.
      */
-    private final DoubleBinaryOperator op3;
+    private final DoubleBinaryOperator OP_3;
 
     /**
      * Constructor initializes the three operators.
@@ -34,13 +34,13 @@ public class ComposedDoubleBinaryOperator implements DoubleBinaryOperator {
      */
     public ComposedDoubleBinaryOperator(DoubleBinaryOperator op1, DoubleBinaryOperator op2, DoubleBinaryOperator op3) {
         // Assign first parameter to first operator
-        this.op1 = op1;
+        this.OP_1 = op1;
 
         // Assign second parameter to second operator
-        this.op2 = op2;
+        this.OP_2 = op2;
 
         // Assign third parameter to third operator
-        this.op3 = op3;
+        this.OP_3 = op3;
     }
 
     /**
@@ -56,13 +56,13 @@ public class ComposedDoubleBinaryOperator implements DoubleBinaryOperator {
     @Override
     public double applyAsDouble(double left, double right) {
         // Apply first operator to given parameters
-        double result1 = op1.applyAsDouble(left, right);
+        double result1 = OP_1.applyAsDouble(left, right);
 
         // Apply second operator to given parameters
-        double result2 = op2.applyAsDouble(left, right);
+        double result2 = OP_2.applyAsDouble(left, right);
 
         // Return application of third operator to the intermediate results
-        return op3.applyAsDouble(result1, result2);
+        return OP_3.applyAsDouble(result1, result2);
     }
 
 }

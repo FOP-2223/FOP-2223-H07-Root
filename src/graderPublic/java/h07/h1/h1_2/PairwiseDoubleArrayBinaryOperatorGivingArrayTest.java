@@ -10,7 +10,7 @@ import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import java.util.Arrays;
 import java.util.function.DoubleBinaryOperator;
 
-import static h07.Utils.*;
+import static h07.Utils.convertStringToOperator;
 import static h07.h1.H1Utils.convertStringToDoubleArray;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 

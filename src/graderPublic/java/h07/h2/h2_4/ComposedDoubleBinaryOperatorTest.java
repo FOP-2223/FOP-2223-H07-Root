@@ -7,7 +7,7 @@ import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
 import java.util.function.DoubleBinaryOperator;
 
-import static h07.Utils.*;
+import static h07.Utils.convertStringToOperator;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 
 @TestForSubmission

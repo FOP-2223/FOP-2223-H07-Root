@@ -1,5 +1,7 @@
 package h07.arrayoperators;
 
+import h07.arrayoperators.DoubleArrayBinaryOperatorGivingScalar;
+
 import java.util.function.DoubleBinaryOperator;
 
 /**

@@ -1,10 +1,8 @@
-package h07.h3.h3_1;
+package h07.h3.h3_4;
 
-import h07.Utils;
-import h07.doubleoperators.DoubleSumWithCoefficientsOp;
 import h07.doubleoperators.PairOfDoubleCoefficients;
 import h07.doubleoperators.TripleOfDoubleBinaryOperators;
-import h07.h3.PairOfDoubleCoefficientsDescendant;
+import h07.h3.TripleOfDoubleBinaryOperatorsDescendant;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -21,43 +19,52 @@ import java.lang.reflect.Method;
 import java.util.function.DoubleBinaryOperator;
 
 import static h07.Utils.*;
-import static h07.h3.H3Utils.isStandardLambda;
+import static h07.h3.H3Utils.isShortLambda;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 
 @TestForSubmission
-public class DoubleSumWithCoefficientsOpAsLambdaTest {
+public class ComposedDoubleBinaryOperatorAsLambdaTest {
 
-    private static final String PATH_TO_CSV = "/h3/h3_1/PrivateTestcases.csv";
+    private static final String PATH_TO_CSV = "/h2/h2_4/PrivateTestcases.csv";
 
     private static final ClassTester<?> FACTORY_CT = getClassTester("h07", "DoubleBinaryOperatorFactory");
 
-    private static Method doubleSumWithCoefficientsOpAsLambdaMethod;
+    private static Method composedDoubleBinaryOperatorAsLambdaMethod;
 
     private boolean nullTested = false;
 
     @ParameterizedTest
     @CsvFileSource(resources = PATH_TO_CSV, numLinesToSkip = 1, delimiter = ';')
-    void testResults(double coeff1, double coeff2, double left, double right, double expected) throws InvocationTargetException, IllegalAccessException {
+    void testResults(String op1, String op2, String op3, double left, double right, double expected) throws InvocationTargetException, IllegalAccessException {
         if (!nullTested) {
             testNullCases();
         }
         var context = contextBuilder()
-            .add("First coefficient", coeff1)
-            .add("Second coefficient", coeff2)
+            .add("First operator", op1)
+            .add("Second operator", op2)
+            .add("Third operator", op3)
             .add("Left value", left)
             .add("Right value", right)
             .build();
+        DoubleBinaryOperator operator1 = convertStringToOperator(op1);
+        DoubleBinaryOperator operator2 = convertStringToOperator(op2);
+        DoubleBinaryOperator operator3 = convertStringToOperator(op3);
 
         call(
-            () -> ((DoubleBinaryOperator) doubleSumWithCoefficientsOpAsLambdaMethod.invoke(
+            () -> ((DoubleBinaryOperator) composedDoubleBinaryOperatorAsLambdaMethod.invoke(
                 FACTORY_CT.getNewInstance(),
-                new PairOfDoubleCoefficients(coeff1, coeff2)
+                new TripleOfDoubleBinaryOperators(operator1, operator2, operator3)
             )).applyAsDouble(left, right),
             context,
             r -> "Call resulted in an error"
         );
 
-        double actual = ((DoubleBinaryOperator) doubleSumWithCoefficientsOpAsLambdaMethod.invoke(FACTORY_CT.getNewInstance(), new PairOfDoubleCoefficients(coeff1, coeff2))).applyAsDouble(left, right);
+        double actual = (
+            (DoubleBinaryOperator) composedDoubleBinaryOperatorAsLambdaMethod.invoke(
+                FACTORY_CT.getNewInstance(),
+                new TripleOfDoubleBinaryOperators(operator1, operator2, operator3)
+            )
+        ).applyAsDouble(left, right);
 
         assertEquals(
             expected,
@@ -72,14 +79,14 @@ public class DoubleSumWithCoefficientsOpAsLambdaTest {
     }
 
     void testNullCases() throws InvocationTargetException, IllegalAccessException {
-        doubleSumWithCoefficientsOpAsLambdaMethod = new MethodTester(
+        composedDoubleBinaryOperatorAsLambdaMethod = new MethodTester(
             FACTORY_CT.resolve(),
-            "doubleSumWithCoefficientsOpAsLambda"
+            "composedDoubleBinaryOperatorAsLambda"
         ).resolveMethod();
-        doubleSumWithCoefficientsOpAsLambdaMethod.trySetAccessible();
+        composedDoubleBinaryOperatorAsLambdaMethod.trySetAccessible();
 
         call(
-            () -> doubleSumWithCoefficientsOpAsLambdaMethod.invoke(
+            () -> composedDoubleBinaryOperatorAsLambdaMethod.invoke(
                 FACTORY_CT.getNewInstance(),
                 (Object) null
             ),
@@ -87,10 +94,10 @@ public class DoubleSumWithCoefficientsOpAsLambdaTest {
             r -> "Call resulted in an error"
         );
 
-        TripleOfDoubleBinaryOperators firstNullObj = new TripleOfDoubleBinaryOperators(null, null, null);
+        PairOfDoubleCoefficients firstNullObj = new PairOfDoubleCoefficients(0, 0);
 
         assertNull(
-            doubleSumWithCoefficientsOpAsLambdaMethod.invoke(
+            composedDoubleBinaryOperatorAsLambdaMethod.invoke(
                 FACTORY_CT.getNewInstance(),
                 firstNullObj
             ),
@@ -99,7 +106,7 @@ public class DoubleSumWithCoefficientsOpAsLambdaTest {
         );
 
         assertNull(
-            doubleSumWithCoefficientsOpAsLambdaMethod.invoke(
+            composedDoubleBinaryOperatorAsLambdaMethod.invoke(
                 FACTORY_CT.getNewInstance(),
                 (Object) null
             ),
@@ -107,26 +114,26 @@ public class DoubleSumWithCoefficientsOpAsLambdaTest {
             r -> "Expected method to return null when invoked with null!"
         );
 
-        PairOfDoubleCoefficients firstNonNullObj = new PairOfDoubleCoefficients(0, 0);
+        TripleOfDoubleBinaryOperators firstNonNullObj = new TripleOfDoubleBinaryOperators(null, null, null);
 
         assertNotNull(
-            doubleSumWithCoefficientsOpAsLambdaMethod.invoke(
+            composedDoubleBinaryOperatorAsLambdaMethod.invoke(
                 FACTORY_CT.getNewInstance(),
                 firstNonNullObj
             ),
             contextBuilder().add("Object", firstNonNullObj).build(),
-            r -> "Expected method to not return null when invoked with an object of type PairOfDoubleCoefficients!"
+            r -> "Expected method to not return null when invoked with an object of type TripleOfDoubleBinaryOperators!"
         );
 
-        PairOfDoubleCoefficientsDescendant secondNonNullObj = new PairOfDoubleCoefficientsDescendant(0, 0);
+        TripleOfDoubleBinaryOperatorsDescendant secondNonNullObj = new TripleOfDoubleBinaryOperatorsDescendant(null, null, null);
 
         assertNotNull(
-            doubleSumWithCoefficientsOpAsLambdaMethod.invoke(
+            composedDoubleBinaryOperatorAsLambdaMethod.invoke(
                 FACTORY_CT.getNewInstance(),
                 secondNonNullObj
             ),
             contextBuilder().add("Object", secondNonNullObj).build(),
-            r -> "Expected method to not return null when invoked with a subtype of PairOfDoubleCoefficients!"
+            r -> "Expected method to not return null when invoked with a subtype of TripleOfDoubleBinaryOperators!"
         );
 
         nullTested = true;
@@ -135,7 +142,7 @@ public class DoubleSumWithCoefficientsOpAsLambdaTest {
     @Test
     void testLambdaExpression() {
         Launcher launcher = getSpoonLauncherForClass("h07", "DoubleBinaryOperatorFactory");
-        CtMethod<?> method = getCtMethod(launcher, "doubleSumWithCoefficientsOpAsLambda");
+        CtMethod<?> method = getCtMethod(launcher, "composedDoubleBinaryOperatorAsLambda");
 
         assertTrue(
             method.getElements(element -> element instanceof CtLambda<?>).size() != 0,
@@ -145,9 +152,9 @@ public class DoubleSumWithCoefficientsOpAsLambdaTest {
 
         for (CtElement lambda : method.getElements(element -> element instanceof CtLambda<?>)) {
             assertTrue(
-                isStandardLambda((CtLambda<?>) lambda),
+                isShortLambda((CtLambda<?>) lambda),
                 contextBuilder().add("Lambda expression found", lambda).build(),
-                r -> "Expected a standard lambda expression!"
+                r -> "Expected a short lambda expression!"
             );
         }
     }

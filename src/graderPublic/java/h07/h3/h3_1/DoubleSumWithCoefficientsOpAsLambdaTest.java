@@ -1,7 +1,5 @@
 package h07.h3.h3_1;
 
-import h07.Utils;
-import h07.doubleoperators.DoubleSumWithCoefficientsOp;
 import h07.doubleoperators.PairOfDoubleCoefficients;
 import h07.doubleoperators.TripleOfDoubleBinaryOperators;
 import h07.h3.PairOfDoubleCoefficientsDescendant;

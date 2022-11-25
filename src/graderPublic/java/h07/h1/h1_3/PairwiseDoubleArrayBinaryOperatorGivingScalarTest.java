@@ -1,7 +1,6 @@
 package h07.h1.h1_3;
 
 import h07.arrayoperators.PairwiseDoubleArrayBinaryOperatorGivingScalar;
-import h07.operators.DoubleSumOfTwo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -14,9 +13,8 @@ import java.util.Arrays;
 
 import static h07.Utils.convertStringToOperator;
 import static h07.Utils.getSpoonLauncherForClass;
-import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
-import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.contextBuilder;
 import static h07.h1.H1Utils.convertStringToDoubleArray;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 
 @TestForSubmission
 public class PairwiseDoubleArrayBinaryOperatorGivingScalarTest {
