@@ -19,10 +19,7 @@ public class BuildOperatorTest {
             getSpoonLauncherForClass("h07", "DoubleBinaryOperatorFactory"),
             "buildOperator"
         );
-
-        List<CtInvocationImpl<?>> invocations = buildOperatorMethod.getElements(
-            Objects::nonNull
-        );
+        List<CtInvocationImpl<?>> invocations = buildOperatorMethod.getElements(Objects::nonNull);
 
         assertTrue(
             !invocations.isEmpty(),

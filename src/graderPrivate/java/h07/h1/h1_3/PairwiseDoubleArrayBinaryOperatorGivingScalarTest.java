@@ -1,7 +1,6 @@
 package h07.h1.h1_3;
 
 import h07.arrayoperators.PairwiseDoubleArrayBinaryOperatorGivingScalar;
-import h07.operators.DoubleSumOfTwo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -26,12 +25,6 @@ public class PairwiseDoubleArrayBinaryOperatorGivingScalarTest {
     @ParameterizedTest
     @CsvFileSource(resources = PATH_TO_CSV, numLinesToSkip = 1, delimiter = ';')
     void testResult(String op1, String op2, String init, String leftArray, String rightArray, String result) {
-        PairwiseDoubleArrayBinaryOperatorGivingScalar operator = new PairwiseDoubleArrayBinaryOperatorGivingScalar(
-            convertStringToOperator(op1),
-            convertStringToOperator(op2),
-            Double.parseDouble(init)
-        );
-
         double[] left = convertStringToDoubleArray(leftArray);
         double[] right = convertStringToDoubleArray(rightArray);
         double expected = Double.parseDouble(result);
@@ -44,19 +37,16 @@ public class PairwiseDoubleArrayBinaryOperatorGivingScalarTest {
             .add("Right Array", Arrays.toString(right))
             .build();
 
-        PairwiseDoubleArrayBinaryOperatorGivingScalar finalOperator = operator;
-        call(
-            () -> finalOperator.applyAsDoubleArray(left, right),
-            context,
-            r -> "Call resulted in an error"
-        );
-
-        operator = new PairwiseDoubleArrayBinaryOperatorGivingScalar(
+        PairwiseDoubleArrayBinaryOperatorGivingScalar operator = new PairwiseDoubleArrayBinaryOperatorGivingScalar(
             convertStringToOperator(op1),
             convertStringToOperator(op2),
             Double.parseDouble(init)
         );
-        double actual = operator.applyAsDoubleArray(left, right);
+        double actual = callObject(
+            () -> operator.applyAsDoubleArray(left, right),
+            context,
+            r -> "Call resulted in an error"
+        );
 
         assertEquals(
             expected,

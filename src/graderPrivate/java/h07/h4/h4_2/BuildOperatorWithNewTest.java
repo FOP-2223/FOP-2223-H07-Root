@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import spoon.reflect.code.CtIf;
 import spoon.reflect.code.CtSwitch;
-import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtMethod;
 import spoon.support.reflect.code.CtConstructorCallImpl;
 
@@ -27,8 +26,8 @@ public class BuildOperatorWithNewTest {
 
     @Test
     void testReturnTypes() {
-        assertTrue(
-            DoubleBinaryOperatorFactory.buildOperator(
+        assertCallTrue(
+            () -> DoubleBinaryOperatorFactory.buildOperator(
                 "Coeffs",
                 new PairOfDoubleCoefficients(0, 0),
                 true
@@ -36,8 +35,8 @@ public class BuildOperatorWithNewTest {
             contextBuilder().add("String", "Coeffs").add("Object", new PairOfDoubleCoefficients(0,0)).add("Boolean", true).build(),
             r -> "Expected method to return an object of type \"DoubleSumWithCoefficientsOp\"!"
         );
-        assertTrue(
-            DoubleBinaryOperatorFactory.buildOperator(
+        assertCallTrue(
+            () -> DoubleBinaryOperatorFactory.buildOperator(
                 "Euclidean",
                 null,
                 true
@@ -45,8 +44,8 @@ public class BuildOperatorWithNewTest {
             contextBuilder().add("String", "Euclidean").add("Object", null).add("Boolean", true).build(),
             r -> "Expected method to return an object of type \"EuclideanNorm\"!"
         );
-        assertTrue(
-            DoubleBinaryOperatorFactory.buildOperator(
+        assertCallTrue(
+            () -> DoubleBinaryOperatorFactory.buildOperator(
                 "Max",
                 null,
                 true
@@ -54,8 +53,8 @@ public class BuildOperatorWithNewTest {
             contextBuilder().add("String", "Max").add("Object", null).add("Boolean", true).build(),
             r -> "Expected method to return an object of type \"DoubleMaxOfTwo\"!"
         );
-        assertTrue(
-            DoubleBinaryOperatorFactory.buildOperator(
+        assertCallTrue(
+            () -> DoubleBinaryOperatorFactory.buildOperator(
                 "Composed",
                 new TripleOfDoubleBinaryOperators(null, null, null),
                 true

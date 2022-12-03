@@ -26,15 +26,15 @@ public class PairwiseDoubleArrayBinaryOperatorGivingArrayTest {
         call(
             () -> operator.applyAsDoubleArray(null, null),
             contextBuilder()
-                .add("Operator", "DoubleSumOfTwo (see /src/graderPublic/java/h07/operators)")
+                .add("Operator", "DoubleSumOfTwo (see /src/graderPrivate/java/h07/operators)")
                 .add("Left Value", null)
                 .add("Right Value", null)
                 .build(),
             r -> "Call resulted in an error"
         );
 
-        assertNull(
-            operator.applyAsDoubleArray(null, new double[0]),
+        assertCallNull(
+            () -> operator.applyAsDoubleArray(null, new double[0]),
             contextBuilder()
                 .add("Operator", "DoubleSumOfTwo (see /src/graderPublic/java/h07/operators)")
                 .add("Left Value", null)
@@ -42,8 +42,8 @@ public class PairwiseDoubleArrayBinaryOperatorGivingArrayTest {
                 .build(),
             r -> "Expected the method to return null when one of the given arguments is null!"
         );
-        assertNull(
-            operator.applyAsDoubleArray(new double[0], null),
+        assertCallNull(
+            () -> operator.applyAsDoubleArray(new double[0], null),
             contextBuilder()
                 .add("Operator", "DoubleSumOfTwo (see /src/graderPublic/java/h07/operators)")
                 .add("Left Value", "Empty Array")
@@ -51,14 +51,14 @@ public class PairwiseDoubleArrayBinaryOperatorGivingArrayTest {
                 .build(),
             r -> "Expected the method to return null when one of the given arguments is null!"
         );
-        assertNull(
-            operator.applyAsDoubleArray(null, null),
+        assertCallNull(
+            () -> operator.applyAsDoubleArray(null, null),
             contextBuilder()
                 .add("Operator", "DoubleSumOfTwo (see /src/graderPublic/java/h07/operators)")
                 .add("Left Value", null)
                 .add("Right Value", null)
                 .build(),
-            r ->"Expected the method to return null when both of the given arguments are null!"
+            r -> "Expected the method to return null when both of the given arguments are null!"
         );
     }
 
@@ -79,7 +79,7 @@ public class PairwiseDoubleArrayBinaryOperatorGivingArrayTest {
 
         PairwiseDoubleArrayBinaryOperatorGivingArray operator = new PairwiseDoubleArrayBinaryOperatorGivingArray(operator1);
 
-        call(
+        double[] actual = callObject(
             () -> operator.applyAsDoubleArray(left, right),
             context,
             r -> "Call resulted in an error"
@@ -173,8 +173,6 @@ public class PairwiseDoubleArrayBinaryOperatorGivingArrayTest {
             context,
             r -> "Call resulted in an error"
         );
-
-        double[] actual = operator.applyAsDoubleArray(left, right);
 
         for (int i = 0; i < expected.length; i++) {
             int finalI = i;

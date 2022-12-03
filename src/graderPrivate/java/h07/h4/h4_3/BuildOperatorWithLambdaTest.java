@@ -22,13 +22,13 @@ public class BuildOperatorWithLambdaTest {
         "buildOperatorWithLambda"
     );
 
-    private boolean coeffCaseCorrect = false;
-    private boolean euclideanCaseCorrect = false;
-    private boolean maxCaseCorrect = false;
-    private boolean composedCaseCorrect = false;
-
     @Test
     void testReturnTypes() {
+        boolean coeffCaseCorrect = false;
+        boolean euclideanCaseCorrect = false;
+        boolean maxCaseCorrect = false;
+        boolean composedCaseCorrect = false;
+
         List<CtCaseImpl<?>> caseList = BUILD_OPERATOR_WITH_LAMBDA_METHOD.getElements(Objects::nonNull);
 
         for (CtCaseImpl<?> caze : caseList) {
