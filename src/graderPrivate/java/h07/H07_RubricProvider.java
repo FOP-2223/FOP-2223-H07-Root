@@ -20,12 +20,18 @@ import org.sourcegrade.jagr.api.rubric.*;
 import java.lang.reflect.Method;
 import java.util.concurrent.Callable;
 import java.util.function.BiFunction;
+import java.util.function.Function;
+import java.util.regex.Pattern;
 
 public class H07_RubricProvider implements RubricProvider {
 
+    private static final Function<String, String> CODE_TAGIFY = s -> Pattern.compile("\\[\\[\\[(.+?)]]]")
+        .matcher(s)
+        .replaceAll(matchResult -> "\\\\<code\\\\>%s\\\\</code\\\\>".formatted(matchResult.group(1)));
+
     private static final BiFunction<String, Callable<Method>, Criterion> DEFAULT_CRITERION = (s, methodCallable) ->
         Criterion.builder()
-            .shortDescription(s)
+            .shortDescription(CODE_TAGIFY.apply(s))
             .grader(Grader.testAwareBuilder()
                 .requirePass(JUnitTestRef.ofMethod(methodCallable))
                 .pointsFailedMin()
@@ -35,7 +41,7 @@ public class H07_RubricProvider implements RubricProvider {
 
     private static final TriFunction<String, Callable<Method>, Integer, Criterion> DEFAULT_CRITERION_WITH_POINTS = (s, methodCallable, maxPoints) ->
         Criterion.builder()
-            .shortDescription(s)
+            .shortDescription(CODE_TAGIFY.apply(s))
             .grader(Grader.testAwareBuilder()
                 .requirePass(JUnitTestRef.ofMethod(methodCallable))
                 .pointsFailedMin()
@@ -47,10 +53,10 @@ public class H07_RubricProvider implements RubricProvider {
 
     private static final Criterion CRITERION_H1_1 = Criterion
         .builder()
-        .shortDescription("H1.1: Unäre Filter-Klasse auf \"Array von double\"")
+        .shortDescription(CODE_TAGIFY.apply("H1.1: Unäre Filter-Klasse auf \"Array von [[[double]]]\""))
         .addChildCriteria(
             DEFAULT_CRITERION.apply(
-                "Die Methode liefert korrekterweise \"null\" zurück, sollte sie mit \"null\" aufgerufen werden.",
+                "Die Methode liefert korrekterweise [[[null]]] zurück, sollte sie mit [[[null]]] aufgerufen werden.",
                 () -> ReduceDoubleArrayTest.class.getDeclaredMethod("testNullInput")
             ),
             DEFAULT_CRITERION.apply(
@@ -70,10 +76,10 @@ public class H07_RubricProvider implements RubricProvider {
 
     private static final Criterion CRITERION_H1_2 = Criterion
         .builder()
-        .shortDescription("H1.2: Binäre Map-Klasse auf \"Array von double\"")
+        .shortDescription(CODE_TAGIFY.apply("H1.2: Binäre Map-Klasse auf \"Array von [[[double]]]\""))
         .addChildCriteria(
             DEFAULT_CRITERION.apply(
-                "Die Methode liefert korrekterweise \"null\" zurück, sollte einer ihrer Parameter ebenfalls \"null\" sein.",
+                "Die Methode liefert korrekterweise [[[null]]] zurück, sollte einer ihrer Parameter ebenfalls [[[null]]] sein.",
                 () -> PairwiseDoubleArrayBinaryOperatorGivingArrayTest.class.getDeclaredMethod("testNullInput")
             ),
             DEFAULT_CRITERION.apply(
@@ -93,7 +99,7 @@ public class H07_RubricProvider implements RubricProvider {
 
     private static final Criterion CRITERION_H1_3 = Criterion
         .builder()
-        .shortDescription("H1.3: Binäre Fold-Klasse auf \"Array von double\"")
+        .shortDescription(CODE_TAGIFY.apply("H1.3: Binäre Fold-Klasse auf \"Array von [[[double]]]\""))
         .addChildCriteria(
             DEFAULT_CRITERION.apply(
                 "Die Methode liefert korrekte Ergebnisse bei Verwendung verschiedener Operatoren.",
@@ -112,7 +118,7 @@ public class H07_RubricProvider implements RubricProvider {
 
     private static final Criterion CRITERION_H1 = Criterion
         .builder()
-        .shortDescription("H1: Unäre und binäre Operatoren auf \"Array von double\" als Functional Interfaces")
+        .shortDescription(CODE_TAGIFY.apply("H1: Unäre und binäre Operatoren auf \"Array von [[[double]]]\" als Functional Interfaces"))
         .addChildCriteria(
             CRITERION_H1_1,
             CRITERION_H1_2,
@@ -122,7 +128,7 @@ public class H07_RubricProvider implements RubricProvider {
 
     private static final Criterion CRITERION_H2_1 = Criterion
         .builder()
-        .shortDescription("H2.1: Erste binäre Operatorklasse auf double")
+        .shortDescription(CODE_TAGIFY.apply("H2.1: Erste binäre Operatorklasse auf [[[double]]]"))
         .addChildCriteria(
             DEFAULT_CRITERION.apply(
                 "Die Methode liefert korrekte Ergebnisse bei verschiedenen Eingabewerten.",
@@ -133,7 +139,7 @@ public class H07_RubricProvider implements RubricProvider {
 
     private static final Criterion CRITERION_H2_2 = Criterion
         .builder()
-        .shortDescription("H2.2: Zweite binäre Operatorklasse auf double")
+        .shortDescription(CODE_TAGIFY.apply("H2.2: Zweite binäre Operatorklasse auf [[[double]]]"))
         .addChildCriteria(
             DEFAULT_CRITERION.apply(
                 "Die Methode liefert korrekte Ergebnisse bei verschiedenen Eingabewerten.",
@@ -144,7 +150,7 @@ public class H07_RubricProvider implements RubricProvider {
 
     private static final Criterion CRITERION_H2_3 = Criterion
         .builder()
-        .shortDescription("H2.3: Dritte binäre Operatorklasse auf double")
+        .shortDescription(CODE_TAGIFY.apply("H2.3: Dritte binäre Operatorklasse auf [[[double]]]"))
         .addChildCriteria(
             DEFAULT_CRITERION.apply(
                 "Die Methode liefert korrekte Ergebnisse bei verschiedenen Eingabewerten.",
@@ -155,7 +161,7 @@ public class H07_RubricProvider implements RubricProvider {
 
     private static final Criterion CRITERION_H2_4 = Criterion
         .builder()
-        .shortDescription("H2.4: Vierte binäre Operatorklasse auf double")
+        .shortDescription(CODE_TAGIFY.apply("H2.4: Vierte binäre Operatorklasse auf [[[double]]]"))
         .addChildCriteria(
             DEFAULT_CRITERION.apply(
                 "Die Methode liefert korrekte Ergebnisse bei verschiedenen Eingabewerten.",
@@ -166,7 +172,7 @@ public class H07_RubricProvider implements RubricProvider {
 
     private static final Criterion CRITERION_H2 = Criterion
         .builder()
-        .shortDescription("H2: Binäre Operatoren auf double als Functional Interfaces")
+        .shortDescription(CODE_TAGIFY.apply("H2: Binäre Operatoren auf [[[double]]] als Functional Interfaces"))
         .addChildCriteria(
             CRITERION_H2_1,
             CRITERION_H2_2,
@@ -207,7 +213,7 @@ public class H07_RubricProvider implements RubricProvider {
 
     private static final Criterion CRITERION_H3_3 = Criterion
         .builder()
-        .shortDescription("H3.2: Lambda-Ausdruck anstelle von EuclideanNorm")
+        .shortDescription("H3.3: Lambda-Ausdruck anstelle von DoubleMaxOfTwo")
         .addChildCriteria(
             DEFAULT_CRITERION.apply(
                 "Die Methode liefert korrekte Ergebnisse bei verschiedenen Eingabewerten.",
@@ -218,11 +224,11 @@ public class H07_RubricProvider implements RubricProvider {
                 () -> DoubleMaxOfTwoAsLambdaTest.class.getDeclaredMethod("testLambdaExpression")
             ),
             DEFAULT_CRITERION.apply(
-                "Die Methode verwendet im Falle von false eine Methodenreferenz auf die Methode max der Klasse Math.",
+                "Die Methode verwendet im Falle von [[[false]]] eine Methodenreferenz auf die Methode max der Klasse Math.",
                 () -> DoubleMaxOfTwoAsLambdaTest.class.getDeclaredMethod("testMethodReference")
             ),
             DEFAULT_CRITERION.apply(
-                "Die Methode verwendet im Falle von true einen Lambda-Ausdruck mit dem Bedingungsoperator \"<\".",
+                "Die Methode verwendet im Falle von [[[true]]] einen Lambda-Ausdruck mit dem Vergleichsoperator \"<\".",
                 () -> DoubleMaxOfTwoAsLambdaTest.class.getDeclaredMethod("testComparisonOperator")
             )
         )
@@ -230,7 +236,7 @@ public class H07_RubricProvider implements RubricProvider {
 
     private static final Criterion CRITERION_H3_4 = Criterion
         .builder()
-        .shortDescription("H3.4: Lambda-Audruck anstelle von ComposedDoubleBinaryOperator")
+        .shortDescription("H3.4: Lambda-Ausdruck anstelle von ComposedDoubleBinaryOperator")
         .addChildCriteria(
             DEFAULT_CRITERION.apply(
                 "Die Methode liefert korrekte Ergebnisse bei verschiedenen Eingabewerten.",
@@ -267,18 +273,18 @@ public class H07_RubricProvider implements RubricProvider {
 
     private static final Criterion CRITERION_H4_2 = Criterion
         .builder()
-        .shortDescription("H4.2: Operatoren mittels new")
+        .shortDescription(CODE_TAGIFY.apply("H4.2: Operatoren mittels [[[new]]]"))
         .addChildCriteria(
             DEFAULT_CRITERION.apply(
                 "Die Methode liefert die korrekten Objekttypen.",
                 () -> BuildOperatorWithNewTest.class.getDeclaredMethod("testReturnTypes")
             ),
             DEFAULT_CRITERION.apply(
-                "Die Methode verwendet einen switch-Block anstelle von if-Statements.",
+                "Die Methode verwendet einen [[[switch]]]-Block anstelle von [[[if]]]-Statements.",
                 () -> BuildOperatorWithNewTest.class.getDeclaredMethod("testSwitch")
             ),
             DEFAULT_CRITERION.apply(
-                "Die Methode ruft alle vier Konstruktoren mittels \"new\" auf.",
+                "Die Methode ruft alle vier Konstruktoren mittels [[[new]]] auf.",
                 () -> BuildOperatorWithNewTest.class.getDeclaredMethod("testUseOfNew")
             )
         )
@@ -289,20 +295,20 @@ public class H07_RubricProvider implements RubricProvider {
         .shortDescription("H4.3: Operatoren mittels Lambda-Ausdrücken")
         .addChildCriteria(
             DEFAULT_CRITERION_WITH_POINTS.apply(
-                "Die Methode besteht lediglich aus einem return-Statement.",
+                "Die Methode besteht lediglich aus einem [[[return]]]-Statement.",
                 () -> BuildOperatorWithLambdaTest.class.getDeclaredMethod("checkUseOfOnlyReturnStatement"),
                 2
             ),
             DEFAULT_CRITERION.apply(
-                "Die Methode verwendet in ihrem return-Statement einen switch-Block.",
+                "Die Methode verwendet in ihrem [[[return]]]-Statement einen [[[switch]]]-Block.",
                 () -> BuildOperatorWithLambdaTest.class.getDeclaredMethod("testSwitch")
             ),
             DEFAULT_CRITERION.apply(
-                "Die Methode erstellt keine neuen Objekte mittels \"new\".",
+                "Die Methode erstellt keine neuen Objekte mittels [[[new]]].",
                 () -> BuildOperatorWithLambdaTest.class.getDeclaredMethod("checkForUseOfNew")
             ),
             DEFAULT_CRITERION.apply(
-                "Die Methode hat einen switch-case für jeden Operator.",
+                "Die Methode hat einen [[[switch]]]-case für jeden Operator.",
                 () -> BuildOperatorWithLambdaTest.class.getDeclaredMethod("testReturnTypes")
             )
         )
