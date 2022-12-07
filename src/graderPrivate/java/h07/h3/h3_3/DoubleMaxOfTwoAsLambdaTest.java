@@ -7,9 +7,11 @@ import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import org.tudalgo.algoutils.reflect.ClassTester;
 import org.tudalgo.algoutils.reflect.MethodTester;
 import spoon.Launcher;
+import spoon.reflect.code.BinaryOperatorKind;
 import spoon.reflect.code.CtLambda;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtMethod;
+import spoon.support.reflect.code.CtBinaryOperatorImpl;
 import spoon.support.reflect.code.CtExecutableReferenceExpressionImpl;
 
 import java.lang.reflect.InvocationTargetException;
@@ -122,8 +124,8 @@ public class DoubleMaxOfTwoAsLambdaTest {
         Launcher launcher = getSpoonLauncherForClass("h07", "DoubleBinaryOperatorFactory");
         CtMethod<?> method = getCtMethod(launcher, "doubleMaxOfTwoAsLambda");
 
-        assertFalse(
-            method.getElements(element -> element instanceof CtExecutableReferenceExpressionImpl).isEmpty(),
+        assertTrue(
+            !method.getElements(element -> element instanceof CtExecutableReferenceExpressionImpl).isEmpty(),
             emptyContext(),
             r -> "Expected the method to contain a lambda method reference of method max() in class Math!"
         );
@@ -147,8 +149,8 @@ public class DoubleMaxOfTwoAsLambdaTest {
         Launcher launcher = getSpoonLauncherForClass("h07", "DoubleBinaryOperatorFactory");
         CtMethod<?> method = getCtMethod(launcher, "doubleMaxOfTwoAsLambda");
 
-        assertFalse(
-            method.getElements(
+        assertTrue(
+            !method.getElements(
                 element -> element instanceof CtBinaryOperatorImpl
                 && ((CtBinaryOperatorImpl<?>) element).getKind().equals(BinaryOperatorKind.LT)
             ).isEmpty(),
