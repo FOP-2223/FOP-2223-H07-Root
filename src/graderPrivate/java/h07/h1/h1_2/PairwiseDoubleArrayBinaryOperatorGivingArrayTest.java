@@ -85,8 +85,6 @@ public class PairwiseDoubleArrayBinaryOperatorGivingArrayTest {
             r -> "Call resulted in an error"
         );
 
-        double[] actual = operator.applyAsDoubleArray(left, right);
-
         int expectedLength = expected.length;
         int actualLength = actual.length;
 
@@ -168,13 +166,19 @@ public class PairwiseDoubleArrayBinaryOperatorGivingArrayTest {
 
         PairwiseDoubleArrayBinaryOperatorGivingArray operator = new PairwiseDoubleArrayBinaryOperatorGivingArray(operator1);
 
-        call(
+        double[] actual = callObject(
             () -> operator.applyAsDoubleArray(left, right),
             context,
             r -> "Call resulted in an error"
         );
 
-        for (int i = 0; i < expected.length; i++) {
+        assertArrayAlmostEquals(
+            expected,
+            actual,
+            context
+        );
+
+        /*for (int i = 0; i < expected.length; i++) {
             int finalI = i;
             assertEquals(
                 expected[i],
@@ -187,6 +191,6 @@ public class PairwiseDoubleArrayBinaryOperatorGivingArrayTest {
                     finalI
                 )
             );
-        }
+        }*/
     }
 }

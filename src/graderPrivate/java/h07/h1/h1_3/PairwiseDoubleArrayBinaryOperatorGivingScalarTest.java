@@ -11,8 +11,7 @@ import spoon.reflect.code.CtLoop;
 
 import java.util.Arrays;
 
-import static h07.Utils.convertStringToOperator;
-import static h07.Utils.getSpoonLauncherForClass;
+import static h07.Utils.*;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.contextBuilder;
 import static h07.h1.H1Utils.convertStringToDoubleArray;
@@ -48,7 +47,13 @@ public class PairwiseDoubleArrayBinaryOperatorGivingScalarTest {
             r -> "Call resulted in an error"
         );
 
-        assertEquals(
+        assertAlmostEquals(
+            expected,
+            actual,
+            context
+        );
+
+        /*assertEquals(
             expected,
             actual,
             context,
@@ -57,7 +62,7 @@ public class PairwiseDoubleArrayBinaryOperatorGivingScalarTest {
                 expected,
                 actual
             )
-        );
+        );*/
     }
 
     @ParameterizedTest

@@ -57,7 +57,13 @@ public class DoubleMaxOfTwoAsLambdaTest {
             r -> "Call resulted in an error"
         );
 
-        assertEquals(
+        assertAlmostEquals(
+            expected,
+            actual,
+            context
+        );
+
+        /*assertEquals(
             expected,
             actual,
             context,
@@ -66,7 +72,7 @@ public class DoubleMaxOfTwoAsLambdaTest {
                 expected,
                 actual
             )
-        );
+        );*/
     }
 
     void testNullCases() throws InvocationTargetException, IllegalAccessException {

@@ -1,10 +1,12 @@
 package h07.h2.h2_1;
 
+import h07.Utils;
 import h07.doubleoperators.DoubleSumWithCoefficientsOp;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
+import static h07.Utils.assertAlmostEquals;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 
 @TestForSubmission
@@ -20,6 +22,7 @@ public class DoubleSumWithCoefficientsOpTest {
             .add("Second coefficient", coeff2)
             .add("Left value", left)
             .add("Right value", right)
+            .add("Expected similarity", Utils.EPSILON)
             .build();
         DoubleSumWithCoefficientsOp op = new DoubleSumWithCoefficientsOp(coeff1, coeff2);
 
@@ -29,7 +32,13 @@ public class DoubleSumWithCoefficientsOpTest {
             r -> "Call resulted in an error"
         );
 
-        assertEquals(
+        assertAlmostEquals(
+            expected,
+            actual,
+            context
+        );
+
+        /*assertEquals(
             expected,
             actual,
             context,
@@ -38,7 +47,7 @@ public class DoubleSumWithCoefficientsOpTest {
                 expected,
                 actual
             )
-        );
+        );*/
     }
 
 }
