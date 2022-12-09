@@ -265,7 +265,7 @@ public class H07_RubricProvider implements RubricProvider {
         .shortDescription("H4.1: Die Methode buildOperator")
         .addChildCriteria(
             DEFAULT_CRITERION.apply(
-                "Die Methode ruft in beiden Fällen die korrekte Methoden auf.",
+                "Die Methode ruft die beiden anderen Methoden auf.",
                 () -> BuildOperatorTest.class.getDeclaredMethod("testMethodCalls")
             )
         )

@@ -24,18 +24,18 @@ public class BuildOperatorTest {
         assertTrue(
             !invocations.isEmpty(),
             emptyContext(),
-            r -> "Expected the method to call either \"buildOperatorWithNew\" or \"buildOperatorWithLambda\"!"
+            r -> "Expected the method to call either \"buildOperatorWithNew\" or \"buildOperatorWithLambda\" but found no method invocations at all!"
         );
 
         assertTrue(
             !invocations.stream().filter((e) -> e.toString().contains("buildOperatorWithNew")).toList().isEmpty(),
-            emptyContext(),
+            contextBuilder().add("Found invocations", invocations).build(),
             r -> "Expected the method to call \"buildOperatorWithNew\"!"
         );
 
         assertTrue(
             !invocations.stream().filter((e) -> e.toString().contains("buildOperatorWithLambda")).toList().isEmpty(),
-            emptyContext(),
+            contextBuilder().add("Found invocations", invocations).build(),
             r -> "Expected the method to call \"buildOperatorWithLambda\"!"
         );
     }
