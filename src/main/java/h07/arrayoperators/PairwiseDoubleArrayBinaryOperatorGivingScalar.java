@@ -71,6 +71,9 @@ public class PairwiseDoubleArrayBinaryOperatorGivingScalar implements DoubleArra
         // int min = Math.min(left.length, right.length);
         int min = left.length < right.length ? left.length : right.length;
 
+        // Initialize result with initial value. This way init is not changed by the operation
+        double result = init;
+
         // Loop through both arrays from last index
         for (int i = min - 1; i >= 0; i--) {
 
@@ -79,11 +82,11 @@ public class PairwiseDoubleArrayBinaryOperatorGivingScalar implements DoubleArra
             double intermediate = OPERATOR_1.applyAsDouble(left[i], right[i]);
 
             // Apply the second operator ("Faltungsoperation") on the current value of
-            // init and the intermediate value to update init
-            init = OPERATOR_2.applyAsDouble(intermediate, init);
+            // result and the intermediate value to update result
+            result = OPERATOR_2.applyAsDouble(intermediate, result);
         }
 
-        // Return init
-        return init;
+        // Return the result
+        return result;
     }
 }
