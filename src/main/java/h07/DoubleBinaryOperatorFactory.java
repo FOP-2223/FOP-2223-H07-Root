@@ -20,14 +20,14 @@ public class DoubleBinaryOperatorFactory {
      */
     private static DoubleBinaryOperator doubleSumWithCoefficientsOpAsLambda(Object obj) {
         // Check whether parameter is of type PairOfDoubleCoefficients or subtype
-        if (obj instanceof PairOfDoubleCoefficients) {
+        if (obj instanceof PairOfDoubleCoefficients pair) {
             // Return standard lambda-expression
             return (double left, double right) -> {
 
                 // Completely equivalent to implementation of applyAsDouble in DoubleSumWithCoefficientsOp
                 // Take coefficients from the given object
-                return left * ((PairOfDoubleCoefficients) obj).coeff1 +
-                    right * ((PairOfDoubleCoefficients) obj).coeff2;
+                return left * pair.coeff1 +
+                    right * pair.coeff2;
             };
         }
 
@@ -92,14 +92,14 @@ public class DoubleBinaryOperatorFactory {
      */
     private static DoubleBinaryOperator composedDoubleBinaryOperatorAsLambda(Object obj) {
         // Check whether parameter is of type TripleOfDoubleBinaryOperators or subtype
-        if (obj instanceof TripleOfDoubleBinaryOperators) {
+        if (obj instanceof TripleOfDoubleBinaryOperators triple) {
 
             // Completely equivalent to implementation of applyAsDouble in ComposedDoubleBinaryOperator
             // Take operators from the given object
             return (left, right) -> (
-                (TripleOfDoubleBinaryOperators) obj).operator3.applyAsDouble(
-                ((TripleOfDoubleBinaryOperators) obj).operator1.applyAsDouble(left, right),
-                ((TripleOfDoubleBinaryOperators) obj).operator2.applyAsDouble(left, right)
+                triple.operator3.applyAsDouble(
+                triple.operator1.applyAsDouble(left, right),
+                triple.operator2.applyAsDouble(left, right))
             );
         }
 
@@ -138,13 +138,13 @@ public class DoubleBinaryOperatorFactory {
             case "Coeffs":
 
                 // Check whether second parameter is of type PairOfDoubleCoefficients or subtype
-                if (obj instanceof PairOfDoubleCoefficients) {
+                if (obj instanceof PairOfDoubleCoefficients pair) {
 
                     // Return an object of type DoubleSumWithCoefficientsOp
                     // Coefficients are taken from second parameter
                     return new DoubleSumWithCoefficientsOp(
-                        ((PairOfDoubleCoefficients) obj).coeff1,
-                        ((PairOfDoubleCoefficients) obj).coeff2
+                        pair.coeff1,
+                        pair.coeff2
                     );
                 }
 
@@ -164,14 +164,14 @@ public class DoubleBinaryOperatorFactory {
             case "Composed":
 
                 // Check whether second parameter is of type TripleOfDoubleBinaryOperators or subtype
-                if (obj instanceof TripleOfDoubleBinaryOperators) {
+                if (obj instanceof TripleOfDoubleBinaryOperators triple) {
 
                     // Return an object of type ComposedDoubleBinaryOperator
                     // Operators are taken from second parameter
                     return new ComposedDoubleBinaryOperator(
-                        ((TripleOfDoubleBinaryOperators) obj).operator1,
-                        ((TripleOfDoubleBinaryOperators) obj).operator2,
-                        ((TripleOfDoubleBinaryOperators) obj).operator3
+                        triple.operator1,
+                        triple.operator2,
+                        triple.operator3
                     );
                 }
 
