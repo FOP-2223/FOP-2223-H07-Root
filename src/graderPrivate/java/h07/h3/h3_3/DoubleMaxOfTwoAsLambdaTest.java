@@ -14,21 +14,18 @@ import spoon.reflect.declaration.CtMethod;
 import spoon.support.reflect.code.CtBinaryOperatorImpl;
 import spoon.support.reflect.code.CtExecutableReferenceExpressionImpl;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.DoubleBinaryOperator;
 
 import static h07.Utils.*;
 import static h07.h3.H3Utils.isShortLambda;
-import static h07.h3.H3Utils.isStandardLambda;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
-import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.contextBuilder;
 
 @TestForSubmission
 public class DoubleMaxOfTwoAsLambdaTest {
 
-    private static final String PATH_TO_CSV = "/h2/h2_3/PrivateTestcases.csv";
+    private static final String PATH_TO_CSV = "/h3/h3_3/PrivateTestcases.csv";
 
     private static final ClassTester<?> FACTORY_CT = getClassTester("h07", "DoubleBinaryOperatorFactory");
 
@@ -38,7 +35,7 @@ public class DoubleMaxOfTwoAsLambdaTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = PATH_TO_CSV, numLinesToSkip = 1, delimiter = ';')
-    void testResults(double left, double right, double expected) throws InvocationTargetException, IllegalAccessException {
+    public void testResults(double left, double right, double expected) {
         if (!nullTested) {
             testNullCases();
         }
@@ -57,13 +54,7 @@ public class DoubleMaxOfTwoAsLambdaTest {
             r -> "Call resulted in an error"
         );
 
-        assertAlmostEquals(
-            expected,
-            actual,
-            context
-        );
-
-        /*assertEquals(
+        assertEquals(
             expected,
             actual,
             context,
@@ -72,10 +63,10 @@ public class DoubleMaxOfTwoAsLambdaTest {
                 expected,
                 actual
             )
-        );*/
+        );
     }
 
-    void testNullCases() throws InvocationTargetException, IllegalAccessException {
+    void testNullCases() {
         doubleMaxOfTwoAsLambdaMethod = new MethodTester(
             FACTORY_CT.resolve(),
             "doubleMaxOfTwoAsLambda"
@@ -106,7 +97,7 @@ public class DoubleMaxOfTwoAsLambdaTest {
     }
 
     @Test
-    void testLambdaExpression() {
+    public void testLambdaExpression() {
         Launcher launcher = getSpoonLauncherForClass("h07", "DoubleBinaryOperatorFactory");
         CtMethod<?> method = getCtMethod(launcher, "doubleMaxOfTwoAsLambda");
 
@@ -126,7 +117,7 @@ public class DoubleMaxOfTwoAsLambdaTest {
     }
 
     @Test
-    void testMethodReference() {
+    public void testMethodReference() {
         Launcher launcher = getSpoonLauncherForClass("h07", "DoubleBinaryOperatorFactory");
         CtMethod<?> method = getCtMethod(launcher, "doubleMaxOfTwoAsLambda");
 
@@ -151,7 +142,7 @@ public class DoubleMaxOfTwoAsLambdaTest {
     }
 
     @Test
-    void testComparisonOperator() {
+    public void testComparisonOperator() {
         Launcher launcher = getSpoonLauncherForClass("h07", "DoubleBinaryOperatorFactory");
         CtMethod<?> method = getCtMethod(launcher, "doubleMaxOfTwoAsLambda");
 

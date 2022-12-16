@@ -1,6 +1,5 @@
 package h07.h2.h2_1;
 
-import h07.Utils;
 import h07.doubleoperators.DoubleSumWithCoefficientsOp;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -16,13 +15,12 @@ public class DoubleSumWithCoefficientsOpTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = PATH_TO_CSV, numLinesToSkip = 1, delimiter = ';')
-    void testResults(double coeff1, double coeff2, double left, double right, double expected) {
+    public void testResults(double coeff1, double coeff2, double left, double right, double expected) {
         var context = contextBuilder()
             .add("First coefficient", coeff1)
             .add("Second coefficient", coeff2)
             .add("Left value", left)
             .add("Right value", right)
-            .add("Expected similarity", Utils.EPSILON)
             .build();
         DoubleSumWithCoefficientsOp op = new DoubleSumWithCoefficientsOp(coeff1, coeff2);
 
@@ -38,16 +36,6 @@ public class DoubleSumWithCoefficientsOpTest {
             context
         );
 
-        /*assertEquals(
-            expected,
-            actual,
-            context,
-            r -> String.format(
-                "Expected method to return %f but it returned %f instead!",
-                expected,
-                actual
-            )
-        );*/
     }
 
 }

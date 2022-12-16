@@ -5,16 +5,14 @@ import h07.operators.DoubleSumOfTwo;
 import h07.operators.DoubleSumSqrtsOfTwo;
 import org.tudalgo.algoutils.reflect.ClassTester;
 import org.tudalgo.algoutils.tutor.general.assertions.Context;
-import org.tudalgo.algoutils.tutor.general.assertions.PreCommentSupplier;
-import org.tudalgo.algoutils.tutor.general.assertions.Property;
-import org.tudalgo.algoutils.tutor.general.assertions.ResultOfObject;
 import spoon.Launcher;
 import spoon.reflect.declaration.CtMethod;
 
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.DoublePredicate;
 
-import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.assertEquals;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.assertTrue;
 
 public class Utils {
 

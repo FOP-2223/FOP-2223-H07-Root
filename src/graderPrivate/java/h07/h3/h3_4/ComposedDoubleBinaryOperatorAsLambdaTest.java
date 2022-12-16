@@ -1,8 +1,8 @@
 package h07.h3.h3_4;
 
-import h07.h3.TripleOfDoubleBinaryOperatorsDescendant;
 import h07.doubleoperators.PairOfDoubleCoefficients;
 import h07.doubleoperators.TripleOfDoubleBinaryOperators;
+import h07.h3.TripleOfDoubleBinaryOperatorsDescendant;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -24,7 +24,7 @@ import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 @TestForSubmission
 public class ComposedDoubleBinaryOperatorAsLambdaTest {
 
-    private static final String PATH_TO_CSV = "/h2/h2_4/PrivateTestcases.csv";
+    private static final String PATH_TO_CSV = "/h3/h3_4/PrivateTestcases.csv";
 
     private static final ClassTester<?> FACTORY_CT = getClassTester("h07", "DoubleBinaryOperatorFactory");
 
@@ -34,7 +34,7 @@ public class ComposedDoubleBinaryOperatorAsLambdaTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = PATH_TO_CSV, numLinesToSkip = 1, delimiter = ';')
-    void testResults(String op1, String op2, String op3, double left, double right, double expected) {
+    public void testResults(String op1, String op2, String op3, double left, double right, double expected) {
         if (!nullTested) {
             testNullCases();
         }
@@ -64,16 +64,6 @@ public class ComposedDoubleBinaryOperatorAsLambdaTest {
             context
         );
 
-        /*assertEquals(
-            expected,
-            actual,
-            context,
-            r -> String.format(
-                "Expected method to return %f but it returned %f instead!",
-                expected,
-                actual
-            )
-        );*/
     }
 
     void testNullCases() {
@@ -129,7 +119,7 @@ public class ComposedDoubleBinaryOperatorAsLambdaTest {
     }
 
     @Test
-    void testLambdaExpression() {
+    public void testLambdaExpression() {
         Launcher launcher = getSpoonLauncherForClass("h07", "DoubleBinaryOperatorFactory");
         CtMethod<?> method = getCtMethod(launcher, "composedDoubleBinaryOperatorAsLambda");
 

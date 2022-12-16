@@ -1,10 +1,5 @@
 package h07.h1;
 
-import h07.arrayoperators.PairwiseDoubleArrayBinaryOperatorGivingScalar;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Objects;
 

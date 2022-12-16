@@ -17,7 +17,7 @@ public class EuclideanNormTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = PATH_TO_CSV, numLinesToSkip = 1, delimiter = ';')
-    void testResults(double x, double y, double expected) {
+    public void testResults(double x, double y, double expected) {
         var context = contextBuilder()
             .add("x", x)
             .add("y", y)
@@ -35,16 +35,6 @@ public class EuclideanNormTest {
             context
         );
 
-        /*assertEquals(
-            expected,
-            actual,
-            context,
-            r -> String.format(
-                "Expected method to return %f but it returned %f instead!",
-                expected,
-                actual
-            )
-        );*/
     }
 
 }

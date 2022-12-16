@@ -12,7 +12,6 @@ import java.util.Objects;
 import static h07.Utils.getCtMethod;
 import static h07.Utils.getSpoonLauncherForClass;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
-import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.emptyContext;
 
 @TestForSubmission
 public class BuildOperatorWithLambdaTest {
@@ -23,7 +22,7 @@ public class BuildOperatorWithLambdaTest {
     );
 
     @Test
-    void testReturnTypes() {
+    public void testReturnTypes() {
         boolean coeffCaseCorrect = false;
         boolean euclideanCaseCorrect = false;
         boolean maxCaseCorrect = false;
@@ -73,7 +72,7 @@ public class BuildOperatorWithLambdaTest {
     }
 
     @Test
-    void testSwitch() {
+    public void testSwitch() {
         assertTrue(
             !BUILD_OPERATOR_WITH_LAMBDA_METHOD.getElements(e -> e instanceof CtSwitchExpressionImpl<?,?>).isEmpty(),
             emptyContext(),
@@ -82,7 +81,7 @@ public class BuildOperatorWithLambdaTest {
     }
 
     @Test
-    void checkForUseOfNew() {
+    public void checkForUseOfNew() {
         List<CtConstructorCallImpl<?>> constructorCalls = BUILD_OPERATOR_WITH_LAMBDA_METHOD.getBody().getElements(Objects::nonNull);
         assertTrue(
             constructorCalls.isEmpty(),
@@ -95,7 +94,7 @@ public class BuildOperatorWithLambdaTest {
     }
 
     @Test
-    void checkUseOfOnlyReturnStatement() {
+    public void checkUseOfOnlyReturnStatement() {
         List<CtElement> elements = BUILD_OPERATOR_WITH_LAMBDA_METHOD.getBody().getDirectChildren();
         assertTrue(
             elements.get(0) instanceof CtReturnImpl<?>,

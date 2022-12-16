@@ -14,11 +14,18 @@ import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 public class BuildOperatorTest {
 
     @Test
-    void testMethodCalls() {
-        CtMethod<?> buildOperatorMethod = getCtMethod(
-            getSpoonLauncherForClass("h07", "DoubleBinaryOperatorFactory"),
-            "buildOperator"
-        );
+    public void testMethodCalls() {
+        CtMethod<?> buildOperatorMethod = null;
+        try {
+            buildOperatorMethod = getCtMethod(getSpoonLauncherForClass("h07", "DoubleBinaryOperatorFactory"), "buildOperator");
+        } catch (Exception e) {
+            fail(
+                emptyContext(),
+                r -> "Could not find method \"buildOperator\"in class \"BuildOperator\". Did you modify the method signature?"
+            );
+        }
+
+        assert buildOperatorMethod != null;
         List<CtInvocationImpl<?>> invocations = buildOperatorMethod.getElements(Objects::nonNull);
 
         assertTrue(

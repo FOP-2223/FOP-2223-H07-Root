@@ -10,7 +10,8 @@ import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import java.util.Arrays;
 import java.util.function.DoubleBinaryOperator;
 
-import static h07.Utils.*;
+import static h07.Utils.assertArrayAlmostEquals;
+import static h07.Utils.convertStringToOperator;
 import static h07.h1.H1Utils.convertStringToDoubleArray;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 
@@ -20,7 +21,7 @@ public class PairwiseDoubleArrayBinaryOperatorGivingArrayTest {
     private static final String PATH_TO_CSV = "/h1/h1_2/PrivateTestcases.csv";
 
     @Test
-    void testNullInput() {
+    public void testNullInput() {
         PairwiseDoubleArrayBinaryOperatorGivingArray operator = new PairwiseDoubleArrayBinaryOperatorGivingArray(new DoubleSumOfTwo());
 
         call(
@@ -64,7 +65,7 @@ public class PairwiseDoubleArrayBinaryOperatorGivingArrayTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = PATH_TO_CSV, numLinesToSkip = 1, delimiter = ';')
-    void testLengthOfResult(String op1, String leftArray, String rightArray, String result) {
+    public void testLengthOfResult(String op1, String leftArray, String rightArray, String result) {
         DoubleBinaryOperator operator1 = convertStringToOperator(op1);
 
         double[] left = convertStringToDoubleArray(leftArray);
@@ -178,19 +179,5 @@ public class PairwiseDoubleArrayBinaryOperatorGivingArrayTest {
             context
         );
 
-        /*for (int i = 0; i < expected.length; i++) {
-            int finalI = i;
-            assertEquals(
-                expected[i],
-                actual[i],
-                context,
-                r -> String.format(
-                    "The resulting array %s differs from the expected outcome %s at index %d!",
-                    Arrays.toString(expected),
-                    Arrays.toString(actual),
-                    finalI
-                )
-            );
-        }*/
     }
 }

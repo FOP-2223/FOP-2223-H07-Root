@@ -7,7 +7,8 @@ import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
 import java.util.function.DoubleBinaryOperator;
 
-import static h07.Utils.*;
+import static h07.Utils.assertAlmostEquals;
+import static h07.Utils.convertStringToOperator;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 
 @TestForSubmission
@@ -17,7 +18,7 @@ public class ComposedDoubleBinaryOperatorTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = PATH_TO_CSV, numLinesToSkip = 1, delimiter = ';')
-    void testResults(String op1, String op2, String op3, double left, double right, double expected) {
+    public void testResults(String op1, String op2, String op3, double left, double right, double expected) {
         var context = contextBuilder()
             .add("First operator", op1)
             .add("Second operator", op2)
@@ -47,17 +48,6 @@ public class ComposedDoubleBinaryOperatorTest {
             context
         );
 
-        /*assertEquals(
-            expected,
-            actual,
-            context,
-            r -> String.format(
-                "Expected %s to return %f but it returned %f instead!",
-                "applyAsDouble",
-                expected,
-                actual
-            )
-        );*/
     }
 
 }

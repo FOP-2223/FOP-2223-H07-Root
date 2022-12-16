@@ -5,7 +5,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
-import static h07.Utils.assertAlmostEquals;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 
 @TestForSubmission
@@ -17,7 +16,7 @@ public class DoubleMaxOfTwoTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = PATH_TO_CSV, numLinesToSkip = 1, delimiter = ';')
-    void testResults(double left, double right, double expected) {
+    public void testResults(double left, double right, double expected) {
         var context = contextBuilder()
             .add("Left value", left)
             .add("Right value", right)
@@ -29,13 +28,7 @@ public class DoubleMaxOfTwoTest {
             r -> "Call resulted in an error"
         );
 
-        assertAlmostEquals(
-            expected,
-            actual,
-            context
-        );
-
-        /*assertEquals(
+        assertEquals(
             expected,
             actual,
             context,
@@ -45,6 +38,6 @@ public class DoubleMaxOfTwoTest {
                 expected,
                 actual
             )
-        );*/
+        );
     }
 }

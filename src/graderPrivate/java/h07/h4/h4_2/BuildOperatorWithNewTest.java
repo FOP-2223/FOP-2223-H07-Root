@@ -1,6 +1,5 @@
 package h07.h4.h4_2;
 
-import h07.DoubleBinaryOperatorFactory;
 import h07.doubleoperators.*;
 import org.junit.jupiter.api.Test;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
@@ -29,13 +28,13 @@ public class BuildOperatorWithNewTest {
 
     private static final ClassTester<?> FACTORY_CT = getClassTester("h07", "DoubleBinaryOperatorFactory");
 
-    private static Method buildOperatorWithNewMethod = new MethodTester(
+    private static final Method buildOperatorWithNewMethod = new MethodTester(
         FACTORY_CT.resolve(),
         "buildOperatorWithNew"
     ).resolveMethod();
 
     @Test
-    void testReturnTypes() {
+    public void testReturnTypes() {
         buildOperatorWithNewMethod.trySetAccessible();
         assertCallTrue(
             () -> buildOperatorWithNewMethod.invoke(
@@ -76,7 +75,7 @@ public class BuildOperatorWithNewTest {
     }
 
     @Test
-    void testSwitch() {
+    public void testSwitch() {
         assertTrue(
             !BUILD_OPERATOR_WITH_NEW_METHOD.getElements(e -> e instanceof CtSwitch<?>).isEmpty() || !BUILD_OPERATOR_WITH_NEW_METHOD.getElements(e -> e instanceof CtSwitchExpressionImpl<?,?>).isEmpty(),
             emptyContext(),
@@ -91,7 +90,7 @@ public class BuildOperatorWithNewTest {
     }
 
     @Test
-    void testUseOfNew() {
+    public void testUseOfNew() {
         List<CtConstructorCallImpl<?>> constructorCalls = BUILD_OPERATOR_WITH_NEW_METHOD.getElements(Objects::nonNull);
 
         assertEquals(

@@ -9,8 +9,8 @@ import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import java.util.Arrays;
 import java.util.function.DoublePredicate;
 
-import static h07.Utils.*;
-import static h07.h1.H1Utils.*;
+import static h07.Utils.convertStringToPredicate;
+import static h07.h1.H1Utils.convertStringToDoubleArray;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 
 @TestForSubmission
@@ -19,7 +19,7 @@ public class ReduceDoubleArrayTest {
     private static final String PATH_TO_CSV = "/h1/h1_1/PrivateTestcases.csv";
 
     @Test
-    void testNullInput() {
+    public void testNullInput() {
         ReduceDoubleArray reducer = new ReduceDoubleArray(e -> e == 0);
 
         var context = contextBuilder()
@@ -42,7 +42,7 @@ public class ReduceDoubleArrayTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = PATH_TO_CSV, numLinesToSkip = 1, delimiter = ';')
-    void testModificationOfInputArray(String predicate, String inputArray) {
+    public void testModificationOfInputArray(String predicate, String inputArray) {
         var context = contextBuilder()
             .add("Predicate", predicate)
             .add("Input", inputArray)
@@ -75,7 +75,7 @@ public class ReduceDoubleArrayTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = PATH_TO_CSV, numLinesToSkip = 1, delimiter = ';')
-    void testLengthOfResult(String predicate, String inputArray, String outputArray) {
+    public void testLengthOfResult(String predicate, String inputArray, String outputArray) {
         var context = contextBuilder()
             .add("Predicate", predicate)
             .add("Input", inputArray)
@@ -113,7 +113,7 @@ public class ReduceDoubleArrayTest {
     // Check whether correct values are chosen (with different predicates)
     @ParameterizedTest
     @CsvFileSource(resources = PATH_TO_CSV, numLinesToSkip = 1, delimiter = ';')
-    void testResult(String predicate, String inputArray, String outputArray) {
+    public void testResult(String predicate, String inputArray, String outputArray) {
         var context = contextBuilder()
             .add("Predicate", predicate)
             .add("Input", inputArray)

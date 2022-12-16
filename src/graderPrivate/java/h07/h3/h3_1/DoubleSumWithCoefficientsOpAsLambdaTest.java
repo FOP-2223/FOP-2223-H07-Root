@@ -1,7 +1,5 @@
 package h07.h3.h3_1;
 
-import h07.Utils;
-import h07.doubleoperators.DoubleSumWithCoefficientsOp;
 import h07.doubleoperators.PairOfDoubleCoefficients;
 import h07.doubleoperators.TripleOfDoubleBinaryOperators;
 import h07.h3.PairOfDoubleCoefficientsDescendant;
@@ -16,7 +14,6 @@ import spoon.reflect.code.CtLambda;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtMethod;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.function.DoubleBinaryOperator;
 
@@ -37,7 +34,7 @@ public class DoubleSumWithCoefficientsOpAsLambdaTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = PATH_TO_CSV, numLinesToSkip = 1, delimiter = ';')
-    void testResults(double coeff1, double coeff2, double left, double right, double expected) throws InvocationTargetException, IllegalAccessException {
+    public void testResults(double coeff1, double coeff2, double left, double right, double expected) {
         if (!nullTested) {
             testNullCases();
         }
@@ -63,16 +60,6 @@ public class DoubleSumWithCoefficientsOpAsLambdaTest {
             context
         );
 
-        /*assertEquals(
-            expected,
-            actual,
-            context,
-            r -> String.format(
-                "Expected method to return %f but it returned %f instead!",
-                expected,
-                actual
-            )
-        );*/
     }
 
     void testNullCases() {
@@ -128,7 +115,7 @@ public class DoubleSumWithCoefficientsOpAsLambdaTest {
     }
 
     @Test
-    void testLambdaExpression() {
+    public void testLambdaExpression() {
         Launcher launcher = getSpoonLauncherForClass("h07", "DoubleBinaryOperatorFactory");
         CtMethod<?> method = getCtMethod(launcher, "doubleSumWithCoefficientsOpAsLambda");
 
